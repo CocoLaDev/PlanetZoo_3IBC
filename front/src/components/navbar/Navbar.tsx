@@ -116,12 +116,12 @@ const Navbar = () => {
         </div>
       </div>
       {isLogin &&
-        <div className="fixed bg-black/30 -mt-[10vh] h-[100vh] w-screen p-12">
+        <div className="fixed bg-black/40 -mt-[10vh] h-[100vh] w-screen p-12 z-50">
           <Login setIsRegister={setIsRegister} setIsLogin={setIsLogin} />
         </div>
       }
       {isRegister &&
-        <div className="fixed bg-black/30 -mt-[10vh] h-[100vh] w-screen p-12">
+        <div className="fixed bg-black/40 -mt-[10vh] h-[100vh] w-screen p-12 z-50">
           <Register setIsRegister={setIsRegister} setIsLogin={setIsLogin} />
         </div>
       }
