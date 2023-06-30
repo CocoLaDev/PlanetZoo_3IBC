@@ -6,7 +6,9 @@ import Register from "./registerForm";
 const Navbar = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isRegister, setIsRegister] = useState<boolean>(false);
-    
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+
   return (
     <header className="bg-white">
       <div
@@ -117,7 +119,7 @@ const Navbar = () => {
       </div>
       {isLogin &&
         <div className="fixed bg-black/40 -mt-[10vh] h-[100vh] w-screen p-12 z-50">
-          <Login setIsRegister={setIsRegister} setIsLogin={setIsLogin} />
+          <Login setIsRegister={setIsRegister} setIsLogin={setIsLogin} setIsAdmin={setIsAdmin} />
         </div>
       }
       {isRegister &&

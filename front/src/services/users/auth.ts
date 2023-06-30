@@ -1,8 +1,8 @@
 import axios, { CancelToken } from "axios";
-import { User, UserRole } from "../../dto/users/users";
+import { User, UserRole, UserLogin } from "../../dto/users/users";
 
 export class Auth {
-    static async login(username: string, password: string, token?: CancelToken): Promise<User | null> {
+    static async login(username: string, password: string, token?: CancelToken): Promise<UserLogin | null> {
         try {
             const response = await axios.post('http://localhost:3000/api/users/login', {
                 cancelToken: token,

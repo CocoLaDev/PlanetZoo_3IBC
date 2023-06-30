@@ -18,8 +18,6 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/getallspaces:
      *   get:
-     *     security:
-     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Retrieve a list of spaces
@@ -32,8 +30,8 @@ class SpacesRoutes {
      */
     this.router.get(
       "/getallspaces",
-      this.authMiddleware.validateToken,
-      this.authMiddleware.isRole("admin"),
+      // this.authMiddleware.validateToken,
+      // this.authMiddleware.isRole("admin"),
       SpaceController.getAllSpaces
     );
 
@@ -59,8 +57,8 @@ class SpacesRoutes {
      */
     this.router.get(
       "/getspacebyid/:id",
-      this.authMiddleware.validateToken,
-      ticketMiddleware.validateTicket, // Ajout du middleware de validation des tickets
+      // this.authMiddleware.validateToken,
+      // ticketMiddleware.validateTicket, // Ajout du middleware de validation des tickets
       SpaceController.getSpaceById
     );
 

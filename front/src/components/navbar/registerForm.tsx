@@ -69,7 +69,7 @@ const Register = ({ setIsRegister, setIsLogin }: ComponentProps) => {
                                 setErrorMessage("Please fill all fields");
                                 return;
                             }
-                            const data = await Auth.register(pseudo, password, UserRole.visitor);
+                            const data = await Auth.register(pseudo, password, UserRole.VISITOR);
                             if (data) {
                                 setResgistred(true);
                             } else {
