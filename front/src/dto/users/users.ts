@@ -1,10 +1,10 @@
 export enum UserRole {
-    "admin",
-    "veterinarian",
-    "employee",
-    "entretienAgent",
-    "seller",
-    "visitor"
+    ADMIN = "admin",
+    VETERINARIAN = "veterinarian",
+    EMPLOYEE = "employee",
+    ENTRETIENAGENT = "entretienAgent",
+    SELLET = "seller",
+    VISITOR = "visitor"
 }
 
 export interface User{

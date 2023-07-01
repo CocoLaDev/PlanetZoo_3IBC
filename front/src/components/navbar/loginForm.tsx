@@ -1,6 +1,5 @@
 import React from "react";
 import { Auth } from "../../services";
-import { UserRole } from "../../dto";
 
 interface ComponentProps {
     setIsRegister: React.Dispatch<React.SetStateAction<boolean>>;
@@ -56,10 +55,8 @@ const Login = ({ setIsRegister, setIsLogin }: ComponentProps) => {
                             }
                             const data = await Auth.login(pseudo, password);
                             if (data) {
-                                console.log(data);
                                 localStorage.setItem("token", data.token);
-                                console.log(localStorage.getItem("token"));
-                                
+                                setIsLogin(false);
                             } else {
                                 setErrorMessage("An error occured");
                             }
