@@ -57,12 +57,12 @@ const Login = ({ setIsRegister, setIsLogin, setIsAdmin }: ComponentProps) => {
                             }
                             const data = await Auth.login(pseudo, password);
                             if (data) {
-                                console.log(data);
                                 localStorage.setItem("token", data.token);
                                 console.log(localStorage.getItem("token"));
                                 if (data.user.role === UserRole.ADMIN) {
                                     setIsAdmin(true);
                                 }
+                                setIsLogin(false);
                             } else {
                                 setErrorMessage("An error occured");
                             }

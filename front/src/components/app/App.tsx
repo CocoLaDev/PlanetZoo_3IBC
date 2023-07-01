@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -27,19 +28,19 @@ function App() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4 text-center">
-            <a
-              href="#"
+            <Link
+              to="/Tickets"
               className="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-700 focus:outline-none focus:ring active:bg-teal-500 sm:w-auto"
             >
-              Get Started
-            </a>
+              Buy tickets
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              to="/visit"
               className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-teal-600 shadow hover:text-teal-700 focus:outline-none focus:ring active:text-teal-500 sm:w-auto"
             >
-              Learn More
-            </a>
+              Visit the zoo
+            </Link>
           </div>
         </div>
       </div>

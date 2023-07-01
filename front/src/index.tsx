@@ -6,19 +6,29 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from './components/app/App';
 import Navbar from './components/navbar/Navbar';
 import Admin from './components/admin/Admin';
+import Tickets from './components/tickets/tickets';
+import Ticket from './components/tickets/ticket';
+import Profile from './components/profile/profile';
+import { UserProvider } from './utils/user.context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/Admin" element={<Admin />} />
+          <Route path="/Tickets" element={<Tickets />} />
+          <Route path="/Tickets/:index" element={<Ticket />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="*" element={<h1>404</h1>} />
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>
 );
 
