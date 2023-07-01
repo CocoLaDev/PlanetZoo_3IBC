@@ -25,15 +25,15 @@ class TicketController {
 
     let validUntil;
     switch (type) {
-      case "PASS journée":
+      case "Day PASS":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 1);
         break;
-      case "PASS Week-end":
+      case "Week-end PASS":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 2);
         break;
-      case "PASS 1daymonth":
+      case "1daymonth PASS":
         const currentDate = new Date();
         validUntil = new Date(
           currentDate.getFullYear() + 1,
@@ -50,18 +50,26 @@ class TicketController {
         }
         break;
 
-      case "PASS Annuel":
+      case "Year PASS":
         validUntil = new Date();
         validUntil.setFullYear(validUntil.getFullYear() + 1);
         break;
-      case "PASS Escape game":
+      case "Escape game PASS":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 1);
         break;
-      case "PASS Night":
+      case "Night PASS":
         validUntil = new Date();
         validUntil.setHours(23, 59, 59, 999); // Set to the end of the current day
         break;
+    }
+
+    if(!validUntil) {
+      res.status(400).json({
+        message:
+          "Invalid ticket type",
+      });
+      return;
     }
 
     const newTicket = new Ticket({
