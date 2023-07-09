@@ -3,7 +3,7 @@ import { Space } from "../../dto/spaces/spaces";
 
 export class Spaces {
     
-    static async getAllSpaces( token?: CancelToken): Promise<Space | null> {
+    static async getAllSpaces( token?: CancelToken): Promise<Space[] | null> {
         try {
             const response = await axios.get('http://localhost:3000/api/spaces/getallspaces', {
                 cancelToken: token

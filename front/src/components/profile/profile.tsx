@@ -94,7 +94,7 @@ const Profile = () => {
                                         </p>
                                         <p className="text-gray-400 text-xs">until 01/07/2023</p>
                                     </div>
-                                    <p className="font-bold hover:text-yellow-800 hover:underline">Escape game PASS</p>
+                                    <p className="font-bold">Escape game PASS</p>
                                 </div>
                             </div>
                         </div>
