@@ -10,6 +10,7 @@ import Tickets from './components/tickets/tickets';
 import Ticket from './components/tickets/ticket';
 import Profile from './components/profile/profile';
 import { UserProvider } from './utils/user.context';
+import SpaceComponent from './components/spaces/spaces';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,6 +23,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/Admin" element={<Admin />} />
+          <Route path="/Space/:id" element={<SpaceComponent />} />
           <Route path="/Tickets" element={<Tickets />} />
           <Route path="/Tickets/:index" element={<Ticket />} />
           <Route path="/Profile" element={<Profile />} />

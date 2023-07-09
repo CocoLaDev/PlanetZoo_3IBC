@@ -1,10 +1,11 @@
 export interface Space {
+    _id: string;
     name: string;
     description: string;
-    image: string;
+    images: string;
     type: string;
     capacity: number;
-    duration: string;
+    duration: number;
     openingHours: string;
     disabledAccess: boolean;
   }
