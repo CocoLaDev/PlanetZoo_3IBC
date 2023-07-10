@@ -10,6 +10,7 @@ import Tickets from './components/tickets/tickets';
 import Ticket from './components/tickets/ticket';
 import Profile from './components/profile/profile';
 import { UserProvider } from './utils/user.context';
+import SpaceComponent from './components/spaces/spaces';
 import Visit from './components/visit/visit';
 import SideBar from './components/admin/sidebar/SideBar';
 import GestionSpaces from './components/admin/spaces/SpaceGestion';
@@ -35,6 +36,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/Admin" element={<Admin />} />
+          <Route path="/Space/:id" element={<SpaceComponent />} />
           <Route path="/Tickets" element={<Tickets />} />
           <Route path="/Tickets/:index" element={<Ticket />} />
           <Route path="/Profile" element={<Profile />} />
