@@ -58,6 +58,7 @@ const Login = ({ setIsRegister, setIsLogin, setIsAdmin }: ComponentProps) => {
                             const data = await Auth.login(pseudo, password);
                             if (data) {
                                 localStorage.setItem("token", data.token);
+                                localStorage.setItem("userId", data.user._id);
                                 console.log(localStorage.getItem("token"));
                                 if (data.user.role === UserRole.ADMIN) {
                                     setIsAdmin(true);

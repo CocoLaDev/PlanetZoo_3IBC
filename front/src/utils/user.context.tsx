@@ -1,36 +1,45 @@
-import React from "react";
-
-interface UserData {
-    id: string;
-    username: string;
-    password: string;
-}
+import React, { useEffect } from "react";
+import { Users } from "../services/users/users";
+import { User } from "../dto";
 
 interface UserContextProps {
     user: {
-        data?: UserData;
-        token?: string;
-        isAuthenticated: boolean;
+        data?: User;
+        setUserData: () => void;
     };
 }
 
 const initialContext: UserContextProps = {
     user: {
-        isAuthenticated: false,
+        setUserData: async() => { },
     },
 };
 
 export const UserContext = React.createContext<UserContextProps>(initialContext);
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user, setUser] = React.useState<UserData | undefined>(undefined);
+    const [user, setUser] = React.useState<User | undefined>(undefined);
+
+    async function setUserData() {
+        const userId = localStorage.getItem("userId");
+        if (userId) {
+            const data = await Users.getById(userId);
+            if (data) {
+                setUser(data);
+            }
+        }
+    }
+
+    useEffect(() => {
+        setUserData();
+    }, []);
 
     return (
         <UserContext.Provider
             value={{
                 user: {
                     data: user,
-                    isAuthenticated: true,
+                    setUserData,
                 },
             }}
         >

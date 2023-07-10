@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import App from './components/app/App';
 import Navbar from './components/navbar/Navbar';
 import Admin from './components/admin/Admin';
@@ -11,6 +11,19 @@ import Ticket from './components/tickets/ticket';
 import Profile from './components/profile/profile';
 import { UserProvider } from './utils/user.context';
 import SpaceComponent from './components/spaces/spaces';
+import Visit from './components/visit/visit';
+import SideBar from './components/admin/sidebar/SideBar';
+import GestionSpaces from './components/admin/spaces/SpaceGestion';
+
+const AdminWrapper = () => (
+  <>
+    <SideBar />
+    <div className="flex bg-teal-50">
+      <div className="mr-60" />
+      <Outlet />
+    </div>
+  </>
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -27,6 +40,12 @@ root.render(
           <Route path="/Tickets" element={<Tickets />} />
           <Route path="/Tickets/:index" element={<Ticket />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path='/Visit' element={<Visit />} />
+
+          <Route path='/Admin/' element={<AdminWrapper />} >
+            <Route path='Spaces' element={<GestionSpaces />} />
+          </Route>
+
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>

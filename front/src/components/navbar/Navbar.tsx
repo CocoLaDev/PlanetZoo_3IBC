@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "./loginForm";
 import Register from "./registerForm";
@@ -22,39 +22,22 @@ const Navbar = () => {
           <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
               <li>
-                <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-                  About
-                </a>
+                <Link to='/'
+                  className="text-gray-500 transition hover:text-gray-500/75">
+                  Home
+                </Link>
               </li>
-
               <li>
-                <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-                  Careers
-                </a>
+                <Link to='/Tickets'
+                  className="text-gray-500 transition hover:text-gray-500/75">
+                  Tickets
+                </Link>
               </li>
-
               <li>
-                <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-                  History
-                </a>
-              </li>
-
-              <li>
-                <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-                  Services
-                </a>
-              </li>
-
-              <li>
-                <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-                  Projects
-                </a>
-              </li>
-
-              <li>
-                <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-                  Blog
-                </a>
+                <Link to='/Visit'
+                  className="text-gray-500 transition hover:text-gray-500/75">
+                  Visit
+                </Link>
               </li>
             </ul>
           </nav>
@@ -72,7 +55,7 @@ const Navbar = () => {
                   className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
                   onClick={() => {
                     localStorage.removeItem("token")
-                    window.location.reload()
+                    localStorage.removeItem("userId")
                   }
                   }
                 >
