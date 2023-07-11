@@ -1,0 +1,35 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    background-color: rgb(4 120 87);
+    border-radius: 30px;
+    color: rgb(2 44 34);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition-duration: .2s;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.116);
+    padding: 5px;
+    transition-duration: .5s;
+  }
+  
+  .svgIcon {
+    height: 25px;
+    transition-duration: 1.5s;
+  }
+  
+  .button:hover {
+    transition-duration: .5s;
+  }
+  
+  .button:active {
+    transform: scale(0.97);
+    transition-duration: .2s;
+  }
+  
+  .button:hover .svgIcon {
+    transform: rotate(250deg);
+    transition-duration: 1.5s;
+  }
