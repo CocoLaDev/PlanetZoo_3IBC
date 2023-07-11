@@ -37,7 +37,9 @@ const Visit = () => {
               <p className="text-gray-500 italic w-full text-right -mt-4">Click on an area to visit it</p>
             </div>
             {enclosVisited ?
-              <Enclos setEnclosVisited={setEnclosVisited} objectSource={objectSource} />
+              <div className="h-[90%]">
+                <Enclos setEnclosVisited={setEnclosVisited} objectSource={objectSource} />
+              </div>
               :
               <Map handleClick={handleClick} />
             }

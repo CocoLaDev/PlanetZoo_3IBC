@@ -4,7 +4,7 @@ import { Gltf, OrbitControls } from "@react-three/drei";
 import * as three from "three";
 
 interface EnclosProps {
-    setEnclosVisited: React.Dispatch<React.SetStateAction<boolean>>;
+    setEnclosVisited?: React.Dispatch<React.SetStateAction<boolean>>;
     objectSource: string;
 }
 
@@ -12,8 +12,8 @@ const Enclos = ({ setEnclosVisited, objectSource }: EnclosProps) => {
     const obj = useRef<three.Mesh>(null!);
 
     return (
-        <div className="w-full h-[90%] relative">
-            <button className="absolute top-2 left-2 z-10" onClick={() => setEnclosVisited(false)}>Exit</button>
+        <div className="w-full h-full relative">
+            { setEnclosVisited && <button className="absolute top-2 left-2 z-10" onClick={() => setEnclosVisited(false)}>Exit</button> }
             <Canvas
                 camera={{
                     near: 0.1,

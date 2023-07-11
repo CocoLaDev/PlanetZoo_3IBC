@@ -11,13 +11,10 @@ const GestionSpaces = () => {
     useEffect(() => {
         const fetchSpaces = async () => {
             const data = await Spaces.getAllSpaces();
-            console.log(data);
-
-            if (data)
-                setSpaces(data);
+            if (data) setSpaces(data);
         };
-        fetchSpaces();
-    }, []);
+        if (space === null) fetchSpaces();
+    }, [space]);
 
     return (
         <div className="w-full m-16 h-[71vh] bg-white rounded-xl">

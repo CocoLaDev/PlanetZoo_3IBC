@@ -9,21 +9,31 @@ import Admin from './components/admin/Admin';
 import Tickets from './components/tickets/tickets';
 import Ticket from './components/tickets/ticket';
 import Profile from './components/profile/profile';
-import { UserProvider } from './utils/user.context';
+import { UserProvider, useUserContext } from './utils/user.context';
 import SpaceComponent from './components/spaces/spaces';
 import Visit from './components/visit/visit';
 import SideBar from './components/admin/sidebar/SideBar';
 import GestionSpaces from './components/admin/spaces/SpaceGestion';
+import { UserRole } from './dto';
 
-const AdminWrapper = () => (
-  <>
-    <SideBar />
-    <div className="flex bg-teal-50">
-      <div className="mr-60" />
-      <Outlet />
-    </div>
-  </>
-);
+const AdminWrapper = () => {
+  const { data } = useUserContext().user;
+  return (
+    <>
+      {data?.role === UserRole.ADMIN ?
+        <>
+          <SideBar />
+          <div className="flex bg-teal-50">
+            <div className="mr-60" />
+            <Outlet />
+          </div>
+        </>
+        :
+        <h1>404</h1>
+      }
+    </>
+  );
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
