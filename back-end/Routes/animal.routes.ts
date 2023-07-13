@@ -33,10 +33,22 @@ class AnimalRoutes {
          *                 type: string
          *               age:
          *                 type: number
+         *               healthStatus:
+         *                  type: string
+         *               description:
+         *                  type: string
+         *               treatmentsId:
+         *                  type: string
+         *               spaceId:
+         *                  type: string
          *             required:
          *               - name
          *               - species
          *               - age
+         *               - healthStatus
+         *               - description
+         *               - treatmentsId
+         *               - spaceId
          *     responses:
          *       201:
          *         description: Animal created successfully
@@ -45,8 +57,8 @@ class AnimalRoutes {
          */
         this.router.post(
             "/createAnimal",
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole("admin"),
+            // this.authMiddleware.validateToken,
+            // this.authMiddleware.isRole("admin"),
             AnimalController.createAnimal
         );
 
@@ -72,8 +84,8 @@ class AnimalRoutes {
          */
         this.router.get(
             "/getAnimalById/:id",
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole("admin"),
+            // this.authMiddleware.validateToken,
+            // this.authMiddleware.isRole("admin"),
             AnimalController.getAnimalById
         );
 
@@ -93,8 +105,8 @@ class AnimalRoutes {
          */
         this.router.get(
             "/getAnimals",
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole("admin"),
+            // this.authMiddleware.validateToken,
+            // this.authMiddleware.isRole("admin"),
             AnimalController.getAllAnimals
         );
 

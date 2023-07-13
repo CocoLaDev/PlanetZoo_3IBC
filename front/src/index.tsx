@@ -14,6 +14,7 @@ import SpaceComponent from './components/spaces/spaces';
 import Visit from './components/visit/visit';
 import SideBar from './components/admin/sidebar/SideBar';
 import GestionSpaces from './components/admin/spaces/SpaceGestion';
+import AnimalsComponent from './components/animals/animals';
 
 const AdminWrapper = () => (
   <>
@@ -35,7 +36,12 @@ root.render(
         <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
+
+          {/* Alaeddine */}
           <Route path="/Admin" element={<Admin />} />
+          <Route path="/animals" element={<AnimalsComponent />} />
+
+
           <Route path="/Space/:id" element={<SpaceComponent />} />
           <Route path="/Tickets" element={<Tickets />} />
           <Route path="/Tickets/:index" element={<Ticket />} />

@@ -9,4 +9,3 @@ export interface Space {
     openingHours: string;
     disabledAccess: boolean;
   }
-  
