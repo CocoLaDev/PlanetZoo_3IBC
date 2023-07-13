@@ -53,6 +53,20 @@ class UserRoutes {
      */
     this.router.post("/createUsers", userController.createUser);
 
+     /**
+     * @swagger
+     * /api/users/getAllUsers:
+     *   get:
+     *     tags:
+     *       - Users
+     *     summary: Get all users
+     *     responses:
+     *       200:
+     *         description: An array of users
+     *       400:
+     *         description: Error
+     */
+     this.router.get("/getAllUsers", userController.getAllUsers);
 
     /**
      * @swagger
@@ -148,7 +162,7 @@ class UserRoutes {
 
     /**
      * @swagger
-     * /api/users/getUser/{id}:
+     * /api/users/getUserById/{id}:
      *   get:
      *     tags:
      *       - Users
@@ -166,7 +180,7 @@ class UserRoutes {
      *       404:
      *         description: User not found
      */
-    this.router.get("/getUser/:id", userController.getUserById);
+    this.router.get("/getUserById/:id", userController.getUserById);
 
     /**
      * @swagger

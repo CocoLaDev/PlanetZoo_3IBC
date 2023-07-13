@@ -26,7 +26,7 @@ class AuthController {
 
       // Create token
       const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET!, {
-        expiresIn: '1d',
+        expiresIn: '30d',
       });
 
       res.status(200).json({ message: "Logged in successfully", token, user });
@@ -36,5 +36,4 @@ class AuthController {
     }
   }
 }
-
 export default new AuthController();

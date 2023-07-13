@@ -10,6 +10,8 @@ const TicketSchema = new Schema<ITicket>({
     validUntil: { type: Date, required: true },
     escapeGameOrder: [{ type: Schema.Types.ObjectId, ref: 'Space' }],
     validDays: { type: [Date], default: undefined },
+}, {
+    timestamps: true
 });
 
 

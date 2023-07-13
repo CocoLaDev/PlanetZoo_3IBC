@@ -4,7 +4,7 @@ import { User } from "../../dto/users/users";
 export class Users {
     static async getById(id: string, token?: CancelToken): Promise<User | null> {
         try {
-            const response = await axios.get(`http://localhost:3000/api/users/getUser/${id}`, {
+            const response = await axios.get(`http://localhost:3000/api/users/getUserById/${id}`, {
                 cancelToken: token,
             });
             if (response.data) {
