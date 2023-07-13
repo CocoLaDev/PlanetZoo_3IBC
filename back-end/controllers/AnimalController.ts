@@ -5,14 +5,16 @@ import { IAnimal } from '../interfaces/Animals';
 class AnimalController {
     public async createAnimal(req: Request, res: Response): Promise<void> {
         try {
-            const { name, species, healthStatus, spaceId, age } = req.body;
+            const { name, species, age, healthStatus, description, treatments, spaceId } = req.body;
 
             const animal: IAnimal = new Animal({
                 name,
                 species,
+                age,
                 healthStatus,
-                spaceId,
-                age
+                description,
+                treatments,
+                spaceId
             });
 
             await animal.save();
@@ -58,7 +60,7 @@ class AnimalController {
     public async updateAnimal(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
-            const { name, species, spaceId } = req.body;
+            const { name, species, spaceId, age, healthStatus, description, treatments } = req.body;
 
             const animal = await Animal.findById(id);
 
@@ -70,6 +72,10 @@ class AnimalController {
             animal.name = name;
             animal.species = species;
             animal.spaceId = spaceId;
+            animal.age = age;
+            animal.healthStatus = healthStatus;
+            animal.description = description;
+            animal.treatments.push(...treatments);
 
             await animal.save();
 

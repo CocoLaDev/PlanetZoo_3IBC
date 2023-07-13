@@ -30,7 +30,7 @@ class TicketRoutes {
  *             properties:
  *               type:
  *                 type: string
- *               username:
+ *               userId:
  *                 type: string
  *               allowedSpaces:
  *                 type: array
@@ -50,7 +50,7 @@ class TicketRoutes {
  *                   format: date-time
  *             required:
  *               - type
- *               - username
+ *               - userId
  *               - validUntil
  *     responses:
  *       201:
