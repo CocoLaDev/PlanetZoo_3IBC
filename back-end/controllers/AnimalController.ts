@@ -5,13 +5,14 @@ import { IAnimal } from '../interfaces/Animals';
 class AnimalController {
     public async createAnimal(req: Request, res: Response): Promise<void> {
         try {
-            const { name, species, description, spaceId } = req.body;
+            const { name, species, healthStatus, spaceId, age } = req.body;
 
             const animal: IAnimal = new Animal({
                 name,
                 species,
-                description,
-                spaceId
+                healthStatus,
+                spaceId,
+                age
             });
 
             await animal.save();

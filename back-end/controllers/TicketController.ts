@@ -5,13 +5,12 @@ class TicketController {
   public async createTicket(req: Request, res: Response): Promise<void> {
     const {
       type,
-      userId,
+      username,
       allowedSpaces,
       escapeGameOrder,
       validDays = [],
     } = req.body;
 
-    // Check if order array is subset of allowedSpaces array
     if (
       type === "PASS Escape game" &&
       !escapeGameOrder.every((v: string) => allowedSpaces.includes(v))
@@ -24,16 +23,19 @@ class TicketController {
     }
 
     let validUntil;
-    switch (type) {
-      case "Day PASS":
+
+    let typeLowerCase = type.toLowerCase();
+
+    switch (typeLowerCase) {
+      case "pass journée":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 1);
         break;
-      case "Week-end PASS":
+      case "pass week-end":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 2);
         break;
-      case "1daymonth PASS":
+      case "pass 1daymonth":
         const currentDate = new Date();
         validUntil = new Date(
           currentDate.getFullYear() + 1,
@@ -50,31 +52,23 @@ class TicketController {
         }
         break;
 
-      case "Year PASS":
+      case "pass annuel":
         validUntil = new Date();
         validUntil.setFullYear(validUntil.getFullYear() + 1);
         break;
-      case "Escape game PASS":
+      case "pass escape game":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 1);
         break;
-      case "Night PASS":
+      case "pass night":
         validUntil = new Date();
-        validUntil.setHours(23, 59, 59, 999); // Set to the end of the current day
+        validUntil.setHours(23, 59, 59, 999);
         break;
-    }
-
-    if(!validUntil) {
-      res.status(400).json({
-        message:
-          "Invalid ticket type",
-      });
-      return;
     }
 
     const newTicket = new Ticket({
       type,
-      userId,
+      username,
       allowedSpaces,
       escapeGameOrder,
       validUntil,
@@ -98,58 +92,154 @@ class TicketController {
     res.status(200).json(ticket);
   }
 
-  public async getTicketCountBySpace(req: Request, res: Response): Promise<void> {
+  public async getTicketCountBySpace(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const ticketCounts = await Ticket.aggregate([
-      { $unwind: "$allowedSpaces" },
-      { $group: { _id: "$allowedSpaces", count: { $sum: 1 } } },
+      {
+        $addFields: {
+          allowedSpaces: {
+            $map: {
+              input: "$allowedSpaces",
+              as: "spaceId",
+              in: { $toObjectId: "$$spaceId" },
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "spaces",
+          localField: "allowedSpaces",
+          foreignField: "_id",
+          as: "spaceDetails",
+        },
+      },
+      { $unwind: "$spaceDetails" },
+      {
+        $group: {
+          _id: {
+            id: "$spaceDetails._id",
+            name: "$spaceDetails.name",
+          },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: "$_id.id",
+          name: "$_id.name",
+          count: 1,
+        },
+      },
     ]);
+
     res.status(200).json(ticketCounts);
   }
 
-  public async getDailyTicketCountBySpace(req: Request, res: Response): Promise<void> {
+  public async getDailyTicketCountBySpace(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const ticketCounts = await Ticket.aggregate([
+      {
+        $addFields: {
+          allowedSpaces: {
+            $map: {
+              input: "$allowedSpaces",
+              as: "spaceId",
+              in: { $toObjectId: "$$spaceId" },
+            },
+          },
+        },
+      },
       { $unwind: "$allowedSpaces" },
       {
         $lookup: {
           from: "spaces",
           localField: "allowedSpaces",
           foreignField: "_id",
-          as: "spaceDetails"
-        }
+          as: "spaceDetails",
+        },
+      },
+      { $unwind: "$spaceDetails" },
+      {
+        $project: {
+          spaceDetails: 1,
+          date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+        },
       },
       {
         $group: {
           _id: {
-            date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-            space: { id: "$allowedSpaces", name: { $first: "$spaceDetails.name" } },
+            date: "$date",
+            spaceId: "$spaceDetails._id",
+            spaceName: "$spaceDetails.name",
           },
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: "$_id.spaceName",
+          count: 1,
+        },
       },
     ]);
 
     res.status(200).json(ticketCounts);
   }
 
-  public async getWeeklyTicketCountBySpace(req: Request, res: Response): Promise<void> {
+  public async getWeeklyTicketCountBySpace(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const ticketCounts = await Ticket.aggregate([
+      {
+        $addFields: {
+          allowedSpaces: {
+            $map: {
+              input: "$allowedSpaces",
+              as: "spaceId",
+              in: { $toObjectId: "$$spaceId" },
+            },
+          },
+        },
+      },
       { $unwind: "$allowedSpaces" },
       {
         $lookup: {
           from: "spaces",
           localField: "allowedSpaces",
           foreignField: "_id",
-          as: "spaceDetails"
-        }
+          as: "spaceDetails",
+        },
+      },
+      { $unwind: "$spaceDetails" },
+      {
+        $project: {
+          spaceDetails: 1,
+          week: { $week: "$createdAt" },
+        },
       },
       {
         $group: {
           _id: {
-            week: { $week: "$createdAt" },
-            space: { id: "$allowedSpaces", name: { $first: "$spaceDetails.name" } },
+            week: "$week",
+            spaceId: "$spaceDetails._id",
+            spaceName: "$spaceDetails.name",
           },
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: "$_id.spaceName",
+          count: 1,
+        },
       },
     ]);
 

@@ -13,6 +13,20 @@ class SpaceController {
     }
   }
 
+  // Obtenir un espace par nom
+  public async getSpaceByName(req: Request, res: Response): Promise<void> {
+    try {
+      const space = await Space.findOne({ name: req.query.name });
+      if (space) {
+        res.json(space);
+      } else {
+        res.status(404).json({ message: "Espace non trouvé" });
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+
   // Obtenir un espace par ID
   public async getSpaceById(req: Request, res: Response): Promise<void> {
     try {
@@ -97,11 +111,9 @@ class SpaceController {
 
       space.status = false;
       await space.save();
-      res
-        .status(200)
-        .send({
-          message: `L'espace ${req.params.id} n'est plus en maintenance`,
-        });
+      res.status(200).send({
+        message: `L'espace ${req.params.id} n'est plus en maintenance`,
+      });
     } catch (err) {
       res.status(500).send(err);
     }

@@ -4,12 +4,12 @@ import { Request, Response } from "express";
 class ZooController {
   public async canZooOpen(req: Request, res: Response): Promise<void> {
     try {
-      const day = req.params.day; // supposez que le jour est passé en tant que paramètre de l'URL
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-      // Récupérez tous les utilisateurs assignés pour ce jour
+      const day = days[new Date().getDay()];
+
       const users = await User.find({ assignedDays: day });
 
-      // Comptez le nombre d'employés pour chaque rôle
       const counts = {
         accueilAgent: 0,
         veterinarian: 0,
@@ -23,7 +23,6 @@ class ZooController {
         }
       }
 
-      // Vérifiez si le zoo a suffisamment d'employés pour chaque rôle
       if (
         counts.accueilAgent >= 1 &&
         counts.veterinarian >= 1 &&

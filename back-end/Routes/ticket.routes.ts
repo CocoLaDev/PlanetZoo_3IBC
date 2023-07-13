@@ -30,12 +30,15 @@ class TicketRoutes {
  *             properties:
  *               type:
  *                 type: string
- *               userId:
+ *               username:
  *                 type: string
  *               allowedSpaces:
  *                 type: array
  *                 items:
  *                   type: string
+ *               validUntil:
+ *                 type: string
+ *                 format: date-time
  *               escapeGameOrder:
  *                 type: array
  *                 items:
@@ -47,7 +50,7 @@ class TicketRoutes {
  *                   format: date-time
  *             required:
  *               - type
- *               - userId
+ *               - username
  *               - validUntil
  *     responses:
  *       201:
@@ -59,8 +62,8 @@ class TicketRoutes {
  */
     this.router.post(
       "/createTicket",
-      // this.authMiddleware.validateToken,
-      // this.authMiddleware.isRole("admin"),
+      this.authMiddleware.validateToken,
+      this.authMiddleware.isRole("admin"),
       TicketController.createTicket
     );
 
