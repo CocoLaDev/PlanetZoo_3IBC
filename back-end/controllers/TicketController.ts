@@ -2,15 +2,17 @@ import Ticket from "../models/ticket";
 import { Request, Response } from "express";
 
 class TicketController {
+
   public async createTicket(req: Request, res: Response): Promise<void> {
     const {
       type,
-      username,
+      userId,
       allowedSpaces,
       escapeGameOrder,
       validDays = [],
     } = req.body;
 
+    // Check if order array is subset of allowedSpaces array
     if (
       type === "PASS Escape game" &&
       !escapeGameOrder.every((v: string) => allowedSpaces.includes(v))
@@ -23,19 +25,16 @@ class TicketController {
     }
 
     let validUntil;
-
-    let typeLowerCase = type.toLowerCase();
-
-    switch (typeLowerCase) {
-      case "pass journée":
+    switch (type) {
+      case "Day PASS":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 1);
         break;
-      case "pass week-end":
+      case "Week-end PASS":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 2);
         break;
-      case "pass 1daymonth":
+      case "1daymonth PASS":
         const currentDate = new Date();
         validUntil = new Date(
           currentDate.getFullYear() + 1,
@@ -52,23 +51,31 @@ class TicketController {
         }
         break;
 
-      case "pass annuel":
+      case "Year PASS":
         validUntil = new Date();
         validUntil.setFullYear(validUntil.getFullYear() + 1);
         break;
-      case "pass escape game":
+      case "Escape game PASS":
         validUntil = new Date();
         validUntil.setDate(validUntil.getDate() + 1);
         break;
-      case "pass night":
+      case "Night PASS":
         validUntil = new Date();
-        validUntil.setHours(23, 59, 59, 999);
+        validUntil.setHours(23, 59, 59, 999); // Set to the end of the current day
         break;
+    }
+
+    if (!validUntil) {
+      res.status(400).json({
+        message:
+          "Invalid ticket type",
+      });
+      return;
     }
 
     const newTicket = new Ticket({
       type,
-      username,
+      userId,
       allowedSpaces,
       escapeGameOrder,
       validUntil,

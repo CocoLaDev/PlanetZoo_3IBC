@@ -2,7 +2,7 @@ import { ObjectId } from "mongoose";
 
 interface ITicket {
   type: string;
-  username: string;
+  userId: string;
   allowedSpaces: ObjectId[];
   validUntil?: Date;
   escapeGameOrder?: ObjectId[];

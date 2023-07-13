@@ -133,8 +133,8 @@ class SpacesRoutes {
      */
     this.router.post(
       "/createspace",
-      this.authMiddleware.validateToken,
-      this.authMiddleware.isRole("admin"),
+      // this.authMiddleware.validateToken,
+      // this.authMiddleware.isRole("admin"),
       SpaceController.createSpace
     );
 

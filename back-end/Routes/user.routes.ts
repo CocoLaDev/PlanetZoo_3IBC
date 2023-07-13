@@ -55,7 +55,7 @@ class UserRoutes {
 
      /**
      * @swagger
-     * /api/users:
+     * /api/users/getAllUsers:
      *   get:
      *     tags:
      *       - Users

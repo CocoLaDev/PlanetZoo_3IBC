@@ -29,7 +29,7 @@ class AuthController {
         expiresIn: '30d',
       });
 
-      res.status(200).json({ message: "Logged in successfully", token });
+      res.status(200).json({ message: "Logged in successfully", token, user });
     } catch (error: any) {
       console.log("🚀 ~ UserController ~ login ~ error:", error);
       res.status(500).json({ error: error.message });
