@@ -5,6 +5,7 @@ export interface AnimalInterface extends Document {
     name: string;
     species: string;
     age: number;
+    description: string;
     healthStatus: string;
     treatments: mongoose.Types.ObjectId[];
     spaceId: SpacesInterface['_id'];
@@ -24,6 +25,10 @@ const animalSchema = new mongoose.Schema({
         required: true,
     },
     healthStatus: {
+        type: String,
+        required: true,
+    },
+    description: {
         type: String,
         required: true,
     },

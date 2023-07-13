@@ -1,3 +1,4 @@
 export * from './users'
 export * from './tickets'
 export * from './spaces'
+export * from './animals'
