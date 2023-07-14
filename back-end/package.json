@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lattana-sck/PlanodeZoo.git"
+    "url": "https://github.com/CoralieBoyer/PlanetZoo_3IBC"
   },
-  "author": "Lattana / Julien / Yanis",
+  "author": "3IBC",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Lattana-sck/PlanodeZoo/issues"
+    "url": "https://github.com/CoralieBoyer/PlanetZoo_3IBC/issues"
   },
-  "homepage": "https://github.com/Lattana-sck/PlanodeZoo#readme",
+  "homepage": "https://github.com/CoralieBoyer/PlanetZoo_3IBC#readme",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.2",

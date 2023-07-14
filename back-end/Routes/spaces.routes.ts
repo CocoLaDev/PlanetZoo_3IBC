@@ -1,7 +1,7 @@
 import { AuthMiddleware } from "./../middleware/authMiddleware";
 import express, { Router } from "express";
 import SpaceController from "../controllers/SpaceController";
-import ticketMiddleware from '../middleware/ticketMiddleware';
+import ticketMiddleware from "../middleware/ticketMiddleware";
 
 class SpacesRoutes {
   public router: Router;
@@ -18,6 +18,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/getallspaces:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Retrieve a list of spaces
@@ -33,6 +35,35 @@ class SpacesRoutes {
       // this.authMiddleware.validateToken,
       // this.authMiddleware.isRole("admin"),
       SpaceController.getAllSpaces
+    );
+
+    /**
+     * @swagger
+     * /api/spaces/getspacebyname:
+     *   get:
+     *     security:
+     *       - BearerAuth: []
+     *     tags:
+     *       - Spaces
+     *     summary: Retrieve a space by name
+     *     description: Returns a space by its name
+     *     parameters:
+     *       - name: name
+     *         description: Name of the space
+     *         in: query
+     *         required: true
+     *         type: string
+     *     responses:
+     *       200:
+     *         description: A space object
+     *       404:
+     *         description: No space found
+     */
+    this.router.get(
+      "/getspacebyname",
+      this.authMiddleware.validateToken,
+      this.authMiddleware.isRole("admin"),
+      SpaceController.getSpaceByName
     );
 
     /**
@@ -204,8 +235,8 @@ class SpacesRoutes {
      */
     this.router.put(
       "/maintenance/:id",
-      this.authMiddleware.validateToken,
-      this.authMiddleware.isRole("admin"),
+      // this.authMiddleware.validateToken,
+      // this.authMiddleware.isRole("admin"),
       SpaceController.maintenanceSpace
     );
 
@@ -228,8 +259,8 @@ class SpacesRoutes {
      */
     this.router.put(
       "/maintenanceoff/:id",
-      this.authMiddleware.validateToken,
-      this.authMiddleware.isRole("admin"),
+      // this.authMiddleware.validateToken,
+      // this.authMiddleware.isRole("admin"),
       SpaceController.maintenanceOffSpace
     );
   }

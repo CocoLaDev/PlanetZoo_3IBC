@@ -4,15 +4,15 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 
-import Database from './config/database';
-
-import userRoutes from './Routes/user.routes';
-import zooRoutes from './Routes/zoo.routes';
-import spaceRoutes from "./Routes/spaces.routes";
-import servicebookRoutes from "./Routes/servicebook.routes";
-import ticketRoutes from "./Routes/ticket.routes";
-import treatmentRoutes from "./Routes/treatment.routes";
-import animalRoutes from "./Routes/animal.routes";
+import userRoutes from './routes/user.routes';
+import zooRoutes from './routes/zoo.routes';
+import spaceRoutes from "./routes/spaces.routes";
+import servicebookRoutes from "./routes/servicebook.routes";
+import ticketRoutes from "./routes/ticket.routes";
+import treatmentRoutes from "./routes/treatment.routes";
+import animalRoutes from "./routes/animal.routes";
+import Database from "./config/database";
+import checkticketsRoutes from "./routes/checktickets.routes";
 
 class Server {
   private app: express.Application;
@@ -62,8 +62,9 @@ class Server {
     this.app.use("/api/spaces", spaceRoutes);
     this.app.use("/api/servicebook", servicebookRoutes);
     this.app.use("/api/tickets", ticketRoutes);
-    this.app.use("/api/treatment", treatmentRoutes);
+    this.app.use("/api/treatments", treatmentRoutes);
     this.app.use("/api/animals", animalRoutes);
+    this.app.use('/api', checkticketsRoutes);
   }
 
   private initializeErrorHandling(): void {

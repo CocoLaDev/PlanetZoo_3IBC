@@ -137,8 +137,8 @@ class ServicebookRoutes {
      */
     this.router.delete(
       "/delete/:id",
-      // this.authMiddleware.validateToken,
-      // this.authMiddleware.isRole("admin"),
+      this.authMiddleware.validateToken,
+      this.authMiddleware.isRole("admin"),
       ServicebookController.deleteServiceBook
     );
 

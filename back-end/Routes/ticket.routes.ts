@@ -36,6 +36,9 @@ class TicketRoutes {
  *                 type: array
  *                 items:
  *                   type: string
+ *               validUntil:
+ *                 type: string
+ *                 format: date-time
  *               escapeGameOrder:
  *                 type: array
  *                 items:

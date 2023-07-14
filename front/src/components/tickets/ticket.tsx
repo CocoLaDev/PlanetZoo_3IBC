@@ -125,7 +125,10 @@ const Ticket = () => {
                                         disabled={ticketBuy}
                                         onClick={async () => {
                                             setErrorMessage("");
-                                            const data = await Tickets.buy(ticketsArray[parseInt(index)], "649db96b5f877c7ecc3fac4c");
+                                            const data = await Tickets.buy(
+                                              ticketsArray[parseInt(index)],
+                                              "64b03200e31eb0ef20d583e0"
+                                            );
                                             if (data?.message) {
                                                 setTicketBuy(true);
                                             } else {
