@@ -64,7 +64,7 @@ class TicketController {
         break;
     }
 
-    if(!validUntil) {
+    if (!validUntil) {
       res.status(400).json({
         message:
           "Invalid ticket type",
@@ -96,6 +96,16 @@ class TicketController {
     }
 
     res.status(200).json(ticket);
+  }
+
+  public async getTicketsByUser(req: Request, res: Response): Promise<void> {
+    const { userId } = req.params;
+    const tickets = await Ticket.find({ userId: userId });
+    if (!tickets) {
+      res.status(404).json({ message: "Tickets not found" });
+      return;
+    }
+    res.status(200).json(tickets);
   }
 
   public async getTicketCountBySpace(req: Request, res: Response): Promise<void> {

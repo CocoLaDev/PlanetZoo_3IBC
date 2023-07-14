@@ -8,7 +8,7 @@ export class Tickets {
                 "http://localhost:3000/api/tickets/createTicket",
                 {
                     cancelToken: token,
-                    type: ticket.name,
+                    type: ticket.type,
                     userId: userId,
                     allowedSpaces: ticket.allowedSpaces,
                     escapeGameOrder: ticket.escapeGameOrder,
@@ -30,6 +30,21 @@ export class Tickets {
                     params: {
                         userId: userId,
                     },
+                },
+            );
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async getTicketByUserId(userId: string, token?: CancelToken): Promise<Ticket[] | null> {
+        try {
+            const response = await axios.get(
+                `http://localhost:3000/api/tickets/getTicketByUser/${userId}`,
+                {
+                    cancelToken: token,
                 },
             );
             return response.data;

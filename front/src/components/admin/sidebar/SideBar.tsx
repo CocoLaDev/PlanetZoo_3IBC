@@ -11,17 +11,16 @@ const SideBar = () => {
                     <div className="p-4">
                         <ul className="space-y-1">
                             <li>
-                                <Link to="/Admin/Spaces" className="flex items-center bg-teal-600 rounded-xl font-bold text-sm text-white py-3 px-4">
+                                <Link to="/Admin/Spaces" id="/Admin/Spaces" className="flex items-center target:bg-teal-600 bg-white rounded-xl font-bold text-sm target:text-white py-3 px-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" className="text-lg mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" /><circle cx="12" cy="10" r="3" /></svg>
                                     Spaces
                                 </Link>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" className="flex bg-white hover:bg-teal-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="text-lg mr-4" viewBox="0 0 16 16">
-                                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z" />
-                                    </svg>Task list
-                                </a>
+                                <Link to="/Admin/Animals" className="flex bg-white hover:bg-teal-50 target:bg-teal-600 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" className="text-lg mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                    Animals
+                                </Link>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" className="flex bg-white hover:bg-teal-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">

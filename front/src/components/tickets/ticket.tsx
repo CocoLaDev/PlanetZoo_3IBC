@@ -39,7 +39,7 @@ const Ticket = () => {
 
                             <div className="p-8 sm:p-16 lg:p-24 w-full">
                                 <h2 className="text-2xl font-bold sm:text-3xl">
-                                    {ticketsArray[parseInt(index)].name}
+                                    {ticketsArray[parseInt(index)].type}
                                 </h2>
 
                                 <p className="mt-4 text-gray-600 text-justify">

@@ -95,6 +95,33 @@ class TicketRoutes {
       TicketController.getTicket
     );
 
+      /**
+     * @swagger
+     * /api/tickets/getTicketByUser/{userId}:
+     *   get:
+     *     tags:
+     *       - Tickets
+     *     summary: Get a ticket by userId
+     *     parameters:
+     *       - name: userId
+     *         description: Id of the user.
+     *         in: path
+     *         required: true
+     *         schema:
+     *           type: string
+     *     responses:
+     *       200:
+     *         description: Ticket data
+     *       404:
+     *         description: Ticket not found
+     *       401:
+     *         description: Unauthorized
+     */
+      this.router.get(
+        "/getTicketByUser/:userId",
+        TicketController.getTicketsByUser
+      );
+
     /**
      * @swagger
      * /api/tickets/count-by-space:
