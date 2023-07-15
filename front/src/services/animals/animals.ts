@@ -31,7 +31,7 @@ export class Animals {
         return null;
     }
 
-    static async updateAnimal(id: string, name: string, species: string, age: number, description: string, healthStatus: string, treatments: string[], spaceId: string, token?: CancelToken): Promise<string | null> {
+    static async updateAnimal(animal: Animal, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
             if (userToken === null) {
@@ -41,16 +41,16 @@ export class Animals {
                 Authorization: `Bearer ${userToken}`
             };
             const body = {
-                name,
-                species,
-                age,
-                description,
-                healthStatus,
-                treatments,
-                spaceId
+                name: animal.name,
+                species: animal.species,
+                age: animal.age,
+                description: animal.description,
+                healthStatus: animal.healthStatus,
+                treatments: animal.treatments,
+                spaceId: animal.spaceId
             };
 
-            const response = await axios.put(`http://localhost:3000/api/animals/updateAnimal/${id}`, body, {
+            const response = await axios.put(`http://localhost:3000/api/animals/updateAnimal/${animal._id}`, body, {
                 cancelToken: token,
                 headers: headers
             });
@@ -105,10 +105,10 @@ export class Animals {
                 healthStatus,
                 treatments,
                 spaceId
-               
+
             };
 
-            const response = await axios.post(`http://localhost:3000/api/animals/createAnimal`,body , {
+            const response = await axios.post(`http://localhost:3000/api/animals/createAnimal`, body, {
                 cancelToken: token,
                 headers: headers
             });

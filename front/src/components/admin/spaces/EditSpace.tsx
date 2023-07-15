@@ -37,7 +37,7 @@ const EditSpace = ({ space, setSpace }: SpaceProps) => {
                     <Enclos objectSource={"/"+space.images} />
                 </div>
                 <form className="space-y-3 w-1/2"
-                    onSubmit={() => {
+                    onSubmit={async() => {
                         const newSpace : Space = {
                         _id: space._id,
                         name : (document.getElementById("name") as HTMLInputElement).value || space.name,
@@ -49,7 +49,7 @@ const EditSpace = ({ space, setSpace }: SpaceProps) => {
                         disabledAccess : (document.getElementById("option1") as HTMLInputElement).checked || space.disabledAccess,
                         description : (document.getElementById("description") as HTMLInputElement).value || space.description,
                         };
-                        updateSpace(newSpace);
+                        await updateSpace(newSpace);
                     }}
                 >
 
