@@ -52,15 +52,15 @@ const Visit = () => {
             <h1 className="h-[6%] text-xl font-bold">Your pass :</h1>
             <TicketDetails ticket={ticketChoosed} />
           </div>
-        </div>
-      }
-      {!ticketChoosed &&
-        <div className="absolute bottom-0 h-[90vh] w-screen p-24 backdrop-blur-sm z-50 flex justify-center">
-          <div className="bg-white rounded-xl p-4 h-full w-2/3">
-            <h1 className="text-2xl font-bold">Choose a ticket to visit the zoo !</h1>
-            <p className="text-gray-500 italic my-2">Click on a ticket to choose it</p>
-            <TicketsList setTicketChoosed={setTicketChoosed} />
-          </div>
+          {!ticketChoosed &&
+            <div className="absolute bottom-0 h-[90vh] w-screen p-24 backdrop-blur-sm z-50 flex justify-center">
+              <div className="bg-white rounded-xl p-4 h-full w-2/3">
+                <h1 className="text-2xl font-bold">Choose a ticket to visit the zoo !</h1>
+                <p className="text-gray-500 italic my-2">Click on a ticket to choose it</p>
+                <TicketsList setTicketChoosed={setTicketChoosed} />
+              </div>
+            </div>
+          }
         </div>
       }
     </div>
