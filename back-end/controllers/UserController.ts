@@ -7,23 +7,23 @@ class UserController {
   public async createUser(req: Request, res: Response): Promise<void> {
     try {
       const { username, password, role, assignedDays } = req.body;
-  
+
       const existingUser = await User.findOne({ username });
       if (existingUser) {
         res.status(400).json({ error: 'Username already exists' });
         return;
       }
-  
+
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-  
+
       const user: IUser = new User({
         username,
         password: hashedPassword,
         role,
         assignedDays
       });
-  
+
       await user.save();
       res.status(201).json({ message: 'User created successfully' });
     } catch (error: any) {
@@ -35,20 +35,20 @@ class UserController {
   public async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
       const users = await User.find({}).select('-password');
-  
+
       res.status(200).json(users);
     } catch (error: any) {
       console.log('Error getting users:', error);
       res.status(400).json({ error: error.message });
     }
   }
-  
-  
+
+
 
   public async getUserById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const user = await User.findOne({ _id : id });
+      const user = await User.findOne({ _id: id });
       if (user) {
         res.status(200).json(user);
       } else {
@@ -62,37 +62,43 @@ class UserController {
 
   public async updateUser(req: Request, res: Response): Promise<void> {
     try {
-        const { id } = req.params;
-        const { username, role, assignedDays } = req.body;
+      const { id } = req.params;
+      const { username, password, role, assignedDays } = req.body;
 
-        const user = await User.findById(id);
 
-        if (!user) {
-            res.status(404).json({ message: 'User not found' });
-            return;
-        }
+      const user = await User.findById(id);
 
-        const existingUser = await User.findOne({ username });
-        if (existingUser && existingUser.id !== id) {
-            res.status(400).json({ message: 'Username is already in use' });
-            return;
-        }
+      if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
 
-        // Map through the array of objects and extract only the `value` property
-        const mappedDays = assignedDays.map((day: { value: string; label: string; }) => day.value);
+      const existingUser = await User.findOne({ username });
+      if (existingUser && existingUser.id !== id) {
+        res.status(400).json({ message: 'Username is already in use' });
+        return;
+      }
+      
+      // Hash password
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        user.username = username;
-        user.role = role;
-        user.assignedDays = mappedDays;
+      // Map through the array of objects and extract only the `value` property
+      // const mappedDays = assignedDays.map((day: { value: string; label: string; }) => day.value);
 
-        await user.save();
+      user.username = username;
+      if (password) user.password = hashedPassword;
+      user.role = role;
+      // user.assignedDays = mappedDays;
 
-        res.status(200).json({ message: 'User updated successfully' });
+      await user.save();
+
+      res.status(200).json({ message: 'User updated successfully' });
     } catch (error: any) {
-        console.log('Error updating user:', error);
-        res.status(400).json({ error: error.message });
+      console.log('Error updating user:', error);
+      res.status(400).json({ error: error.message });
     }
-}
+  }
 
 
 
@@ -101,7 +107,7 @@ class UserController {
     try {
       const { id } = req.params;
 
-      const result = await User.deleteOne({ _id : id });
+      const result = await User.deleteOne({ _id: id });
 
       if (result.deletedCount === 0) {
         res.status(404).json({ message: 'User not found' });

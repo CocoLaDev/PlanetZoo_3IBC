@@ -3,11 +3,14 @@ import { useUserContext } from "../../utils/user.context";
 import Enclos from "./enclos";
 import Map from "./map";
 import TicketDetails from "./ticketDetails";
+import { Ticket } from "../../dto";
+import TicketsList from "./ticketsList";
 
 const Visit = () => {
 
   const [enclosVisited, setEnclosVisited] = React.useState<boolean>(false);
   const [objectSource, setObjectSource] = React.useState<string>("");
+  const [ticketChoosed, setTicketChoosed] = React.useState<Ticket>();
 
   const { data } = useUserContext().user;
 
@@ -47,7 +50,16 @@ const Visit = () => {
           <div className="w-[20%] pl-4">
             <div className="h-[10%]" />
             <h1 className="h-[6%] text-xl font-bold">Your pass :</h1>
-            <TicketDetails />
+            <TicketDetails ticket={ticketChoosed} />
+          </div>
+        </div>
+      }
+      {!ticketChoosed &&
+        <div className="absolute bottom-0 h-[90vh] w-screen p-24 backdrop-blur-sm z-50 flex justify-center">
+          <div className="bg-white rounded-xl p-4 h-full w-2/3">
+            <h1 className="text-2xl font-bold">Choose a ticket to visit the zoo !</h1>
+            <p className="text-gray-500 italic my-2">Click on a ticket to choose it</p>
+            <TicketsList setTicketChoosed={setTicketChoosed} />
           </div>
         </div>
       }

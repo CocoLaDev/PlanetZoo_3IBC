@@ -21,7 +21,6 @@ const Profile = () => {
   useEffect(() => {
     async function getTickets() {
       if (!data) return;
-      console.log("ok");
       const response = await Tickets.getTicketByUserId(data._id, cancelTokenSource.token);
       console.log(response);
       if (response) {
@@ -101,7 +100,7 @@ const Profile = () => {
 
               <div className="space-y-4 overflow-scroll h-[calc(55vh-50px)]">
                 {tickets.map((ticket, index) => (
-                  <div className="p-4 bg-white border rounded-xl text-gray-800 space-y-1">
+                  <div key={index} className="p-4 bg-white border rounded-xl text-gray-800 space-y-1">
                     <div className="flex justify-between">
                       <p className="text-gray-400 text-xs">until {ticket.validUntil?.toString() || "..."}</p>
                       {ticket.escapeGameOrder && ticket.escapeGameOrder.length > 0 &&

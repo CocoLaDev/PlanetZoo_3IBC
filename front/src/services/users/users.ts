@@ -32,11 +32,28 @@ export class Users {
 
     static async update(user: User, token?: CancelToken): Promise<User | null> {
         try {
+            console.log(user);
+
             const response = await axios.put(`http://localhost:3000/api/users/updateUser/${user._id}`, {
-                cancelToken: token,
                 username: user.username,
                 password: user.password,
                 role: user.role,
+            }, {
+                cancelToken: token
+            });
+            if (response.data) {
+                return response.data;
+            }
+        } catch (err: unknown) {
+            return null;
+        }
+        return null;
+    }
+
+    static async delete(id: string, token?: CancelToken): Promise<string | null> {
+        try {
+            const response = await axios.delete(`http://localhost:3000/api/users/deleteUser/${id}`, {
+                cancelToken: token,
             });
             if (response.data) {
                 return response.data;

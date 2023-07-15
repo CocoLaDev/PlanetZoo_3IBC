@@ -16,6 +16,7 @@ import SideBar from './components/admin/sidebar/SideBar';
 import GestionSpaces from './components/admin/spaces/SpaceGestion';
 import { UserRole } from './dto';
 import AnimalsGestion from './components/admin/animals/AnimalsGestion';
+import UsersList from './components/admin/users/UsersList';
 
 const AdminWrapper = () => {
   const { data } = useUserContext().user;
@@ -56,6 +57,7 @@ root.render(
           <Route path='/Admin/' element={<AdminWrapper />} >
             <Route path='Spaces' element={<GestionSpaces />} />
             <Route path='Animals' element={<AnimalsGestion />} />
+            <Route path='Users' element={<UsersList />} />
           </Route>
 
           <Route path="*" element={<h1>404</h1>} />
