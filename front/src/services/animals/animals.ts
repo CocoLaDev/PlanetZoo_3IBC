@@ -5,8 +5,13 @@ export class Animals {
 
     static async getAnimals(token?: CancelToken): Promise<Animal[] | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.get('http://localhost:3000/api/animals/getAnimals', {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;
@@ -19,8 +24,13 @@ export class Animals {
 
     static async getAnimalById(id: string, token?: CancelToken): Promise<Animal | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.get(`http://localhost:3000/api/animals/getAnimalById/${id}`, {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;
@@ -34,9 +44,7 @@ export class Animals {
     static async updateAnimal(animal: Animal, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };
@@ -67,9 +75,7 @@ export class Animals {
     static async deleteAnimal(id: string, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };
@@ -91,9 +97,7 @@ export class Animals {
     static async createAnimal(name: string, species: string, age: number, description: string, healthStatus: string, treatments: string[], spaceId: string, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };

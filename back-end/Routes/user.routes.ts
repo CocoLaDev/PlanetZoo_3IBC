@@ -83,7 +83,6 @@ class UserRoutes {
      */
     this.router.get(
       "/adminArea",
-      this.authMiddleware.validateToken,
       this.authMiddleware.isRole("admin"),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the admin area" });

@@ -4,8 +4,13 @@ import { Space } from "../../dto/spaces/spaces";
 export class Spaces {
     static async getAllSpaces(token?: CancelToken): Promise<Space[] | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.get('http://localhost:3000/api/spaces/getallspaces', {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;
@@ -18,8 +23,13 @@ export class Spaces {
 
     static async getSpaceById(id: string, token?: CancelToken): Promise<Space | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.get(`http://localhost:3000/api/spaces/getspacebyid/${id}`, {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;
@@ -33,9 +43,7 @@ export class Spaces {
     static async updateSpace(updatedSpace: Space, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };
@@ -57,9 +65,7 @@ export class Spaces {
     static async deleteSpace(id: string, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };
@@ -84,9 +90,7 @@ export class Spaces {
     static async setMaintenanceSpace(id: string, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };
@@ -109,9 +113,7 @@ export class Spaces {
     static async setMaintenanceSpaceOff(id: string, token?: CancelToken): Promise<string | null> {
         try {
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };
@@ -132,6 +134,8 @@ export class Spaces {
 
     static async createSpace(name: string, description: string, images: string, type: string, capacity: number, duration: number, openingHours: string, disabledAccess: boolean, token?: CancelToken): Promise<string | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const body = {
                 name,
                 description,
@@ -144,6 +148,9 @@ export class Spaces {
             };
             const response = await axios.post('http://localhost:3000/api/spaces/createspace', body, {
                 cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;

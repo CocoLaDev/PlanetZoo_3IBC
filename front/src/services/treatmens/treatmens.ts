@@ -5,8 +5,13 @@ export class Treatmens {
 
     static async getAllTreatmens(token?: CancelToken): Promise <Treatmen[] | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.get('http://localhost:3000/api/treatments/getalltreatments', {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;
@@ -20,8 +25,13 @@ export class Treatmens {
 
     static async getTreatmenById(id: string, token?: CancelToken): Promise <Treatmen | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.get(`http://localhost:3000/api/treatmens/gettreatmenbyid/${id}`, {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return response.data;
@@ -35,13 +45,18 @@ export class Treatmens {
 
     static async updateTreatmen(id: string, animalId: string, veterinarianId: string, date: string, treatmentDescription: string, token?: CancelToken): Promise <boolean> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.put(`http://localhost:3000/api/treatmens/updateTreatment/${id}`, {
                 animalId: animalId,
                 veterinarianId: veterinarianId,
                 date: date,
                 treatmentDescription: treatmentDescription
             }, {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return true;
@@ -55,8 +70,13 @@ export class Treatmens {
 
     static async deleteTreatmen(id: string, token?: CancelToken): Promise <boolean> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
             const response = await axios.delete(`http://localhost:3000/api/treatmens/deletetreatment/${id}`, {
-                cancelToken: token
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
             });
             if (response.data) {
                 return true;
@@ -70,11 +90,8 @@ export class Treatmens {
 
     static async createTreatmen(animalId: string, veterinarianId: string, date: string, treatmentDescription: string, token?: CancelToken): Promise <boolean> {
         try {
-            
             const userToken = localStorage.getItem("token");
-            if (userToken === null) {
-                throw new Error("No token found");
-            }
+            if (userToken === null) throw new Error("No token found");
             const headers = {
                 Authorization: `Bearer ${userToken}`
             };

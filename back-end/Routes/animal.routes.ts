@@ -57,8 +57,7 @@ class AnimalRoutes {
          */
         this.router.post(
             "/createAnimal",
-            // this.authMiddleware.validateToken,
-            // this.authMiddleware.isRole("admin"),
+            this.authMiddleware.isRole("admin"),
             AnimalController.createAnimal
         );
 
@@ -84,7 +83,6 @@ class AnimalRoutes {
          */
         this.router.get(
             "/getAnimalById/:id",
-            // this.authMiddleware.validateToken,
             // this.authMiddleware.isRole("admin"),
             AnimalController.getAnimalById
         );
@@ -105,8 +103,7 @@ class AnimalRoutes {
          */
         this.router.get(
             "/getAnimals",
-            // this.authMiddleware.validateToken,
-            // this.authMiddleware.isRole("admin"),
+            this.authMiddleware.isRole("admin"),
             AnimalController.getAllAnimals
         );
 
@@ -144,7 +141,6 @@ class AnimalRoutes {
          */
         this.router.put(
             "/updateAnimal/:id",
-            this.authMiddleware.validateToken,
             this.authMiddleware.isRole("admin"),
             AnimalController.updateAnimal
         );
@@ -171,7 +167,6 @@ class AnimalRoutes {
          */
         this.router.delete(
             "/deleteAnimal/:id",
-            this.authMiddleware.validateToken,
             this.authMiddleware.isRole("admin"),
             AnimalController.deleteAnimal
         );

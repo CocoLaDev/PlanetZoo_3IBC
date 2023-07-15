@@ -32,7 +32,6 @@ class SpacesRoutes {
      */
     this.router.get(
       "/getallspaces",
-      // this.authMiddleware.validateToken,
       // this.authMiddleware.isRole("admin"),
       SpaceController.getAllSpaces
     );
@@ -61,7 +60,6 @@ class SpacesRoutes {
      */
     this.router.get(
       "/getspacebyname",
-      this.authMiddleware.validateToken,
       this.authMiddleware.isRole("admin"),
       SpaceController.getSpaceByName
     );
@@ -88,7 +86,6 @@ class SpacesRoutes {
      */
     this.router.get(
       "/getspacebyid/:id",
-      // this.authMiddleware.validateToken,
       // ticketMiddleware.validateTicket, // Ajout du middleware de validation des tickets
       SpaceController.getSpaceById
     );
@@ -133,7 +130,6 @@ class SpacesRoutes {
      */
     this.router.post(
       "/createspace",
-      // this.authMiddleware.validateToken,
       // this.authMiddleware.isRole("admin"),
       SpaceController.createSpace
     );
@@ -184,7 +180,6 @@ class SpacesRoutes {
      */
     this.router.put(
       "/update/:id",
-      this.authMiddleware.validateToken,
       this.authMiddleware.isRole("admin"),
       SpaceController.updateSpace
     );
@@ -211,7 +206,6 @@ class SpacesRoutes {
      */
     this.router.delete(
       "/delete/:id",
-      this.authMiddleware.validateToken,
       this.authMiddleware.isRole("admin"),
       SpaceController.deleteSpace
     );
@@ -235,7 +229,6 @@ class SpacesRoutes {
      */
     this.router.put(
       "/maintenance/:id",
-      // this.authMiddleware.validateToken,
       // this.authMiddleware.isRole("admin"),
       SpaceController.maintenanceSpace
     );
@@ -259,7 +252,6 @@ class SpacesRoutes {
      */
     this.router.put(
       "/maintenanceoff/:id",
-      // this.authMiddleware.validateToken,
       // this.authMiddleware.isRole("admin"),
       SpaceController.maintenanceOffSpace
     );

@@ -27,7 +27,6 @@ class TreatmentRoutes {
          */
         this.router.get(
             '/getalltreatments',
-            // this.authMiddleware.validateToken,
             // this.authMiddleware.isRole('admin'),
             TreatmentController.getAllTreatments
         );
@@ -54,7 +53,6 @@ class TreatmentRoutes {
          */
         this.router.get(
             '/gettreatmentbyid/:id',
-            this.authMiddleware.validateToken,
             TreatmentController.getTreatmentById
         );
 
@@ -92,7 +90,6 @@ class TreatmentRoutes {
  */
         this.router.post(
             '/createtreatment',
-            this.authMiddleware.validateToken,
             this.authMiddleware.isRole('veterinarian'),
             TreatmentController.createTreatment
         );
@@ -140,7 +137,6 @@ class TreatmentRoutes {
          */
         this.router.put(
             '/updatetreatment/:id',
-            this.authMiddleware.validateToken,
             this.authMiddleware.isRole('veterinarian'),
             TreatmentController.updateTreatment
         );
@@ -167,7 +163,6 @@ class TreatmentRoutes {
          */
         this.router.delete(
             '/deletetreatment/:id',
-            this.authMiddleware.validateToken,
             this.authMiddleware.isRole('veterinarian'),
             TreatmentController.deleteTreatment
         );

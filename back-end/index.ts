@@ -13,14 +13,17 @@ import treatmentRoutes from "./routes/treatment.routes";
 import animalRoutes from "./routes/animal.routes";
 import Database from "./config/database";
 import checkticketsRoutes from "./routes/checktickets.routes";
+import { AuthMiddleware } from "./middleware/authMiddleware";
 
 class Server {
   private app: express.Application;
   private port: number;
+  private authMiddleware: AuthMiddleware;
 
   constructor(port: number) {
     this.app = express();
     this.port = port;
+    this.authMiddleware = new AuthMiddleware();
   }
 
   private async initializeDatabase(): Promise<void> {
@@ -32,6 +35,7 @@ class Server {
     this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(this.authMiddleware.validateToken);
 
     const options = {
       definition: {
