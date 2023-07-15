@@ -11,7 +11,7 @@ const ListSpace = ({ spaces, setSpace }: SpacesProps) => {
 
     async function setMaintenance (space: Space) {
         if(space.maintenance) {
-            const data = await Spaces.setMaintenanceOffSpace(space._id);
+            const data = await Spaces.setMaintenanceSpaceOff(space._id);
             if(data) {
                 setSpace(null);
             }

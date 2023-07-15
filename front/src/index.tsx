@@ -17,6 +17,8 @@ import GestionSpaces from './components/admin/spaces/SpaceGestion';
 import { UserRole } from './dto';
 import AnimalsGestion from './components/admin/animals/AnimalsGestion';
 import UsersList from './components/admin/users/UsersList';
+import AnimalsComponent from './components/animals/animals';
+import { TreatmensComponent } from './components/treatmens/treatmens';
 
 const AdminWrapper = () => {
   const { data } = useUserContext().user;
@@ -47,7 +49,12 @@ root.render(
         <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
+
+          {/* Alaeddine */}
           <Route path="/Admin" element={<Admin />} />
+          <Route path="/animals" element={<AnimalsComponent />} />
+          <Route path="/treatmens/:animalid" element={<TreatmensComponent />} />
+
           <Route path="/Space/:id" element={<SpaceComponent />} />
           <Route path="/Tickets" element={<Tickets />} />
           <Route path="/Tickets/:index" element={<Ticket />} />

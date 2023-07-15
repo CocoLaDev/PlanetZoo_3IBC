@@ -111,7 +111,7 @@ class SpacesRoutes {
      *                 type: string
      *               description:
      *                 type: string
-     *               image:
+     *               images:
      *                 type: string
      *               type:
      *                 type: string
@@ -162,7 +162,7 @@ class SpacesRoutes {
      *                 type: string
      *               description:
      *                 type: string
-     *               image:
+     *               images:
      *                 type: string
      *               type:
      *                 type: string

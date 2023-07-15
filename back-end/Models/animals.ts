@@ -32,6 +32,10 @@ const animalSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     treatments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Treatment',

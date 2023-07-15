@@ -10,4 +10,3 @@ export interface Space {
     disabledAccess: boolean;
     maintenance?: boolean;
   }
-  

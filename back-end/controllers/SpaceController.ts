@@ -64,6 +64,8 @@ class SpaceController {
       const space = await Space.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
       });
+      console.log(req.body);
+      
       res.status(200).send({ message: "Espace modifié avec succès" });
     } catch (err) {
       res.status(500).send(err);

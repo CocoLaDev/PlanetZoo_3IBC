@@ -106,10 +106,19 @@ export class Spaces {
 
 
     // now this PUT /api/spaces/maintenanceoff/{id}
-    static async setMaintenanceOffSpace(id: string, token?: CancelToken): Promise<string | null> {
+    static async setMaintenanceSpaceOff(id: string, token?: CancelToken): Promise<string | null> {
         try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) {
+                throw new Error("No token found");
+            }
+            const headers = {
+                Authorization: `Bearer ${userToken}`
+            };
+
             const response = await axios.put(`http://localhost:3000/api/spaces/maintenanceoff/${id}`, {
-                cancelToken: token
+                cancelToken: token,
+                headers: headers
             });
             if (response.data) {
                 return response.data;
