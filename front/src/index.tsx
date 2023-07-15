@@ -19,6 +19,7 @@ import AnimalsGestion from './components/admin/animals/AnimalsGestion';
 import UsersList from './components/admin/users/UsersList';
 import AnimalsComponent from './components/animals/animals';
 import { TreatmensComponent } from './components/treatmens/treatmens';
+import Error404 from './components/404/404';
 
 const AdminWrapper = () => {
   const { data } = useUserContext().user;
@@ -33,7 +34,7 @@ const AdminWrapper = () => {
           </div>
         </>
         :
-        <h1>404</h1>
+        <Error404 />
       }
     </>
   );
@@ -67,7 +68,7 @@ root.render(
             <Route path='Users' element={<UsersList />} />
           </Route>
 
-          <Route path="*" element={<h1>404</h1>} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>
