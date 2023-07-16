@@ -14,6 +14,8 @@ class ZooRoutes {
      * @swagger
      * /api/zoo/canZooOpen:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Zoo
      *     summary: Check if zoo can open today

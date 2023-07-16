@@ -17,6 +17,8 @@ class ServicebookRoutes {
      * @swagger
      * /api/servicebook/getallservicebooks:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Service Book
      *     summary: Retrieve a list of servicebooks
@@ -34,6 +36,8 @@ class ServicebookRoutes {
      * @swagger
      * /api/servicebook/getservicebookbyid/{id}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Service Book
      *     summary: Retrieve a Servicebook by ID
@@ -66,6 +70,8 @@ class ServicebookRoutes {
      * @swagger
      * /api/servicebook/createservicebook:
      *   post:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Service Book
      *     summary: Create a new servicebook
@@ -89,6 +95,8 @@ class ServicebookRoutes {
      * @swagger
      * /api/servicebook/update/{id}:
      *   put:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Service Book
      *     summary: Update a servicebook by ID
@@ -118,6 +126,8 @@ class ServicebookRoutes {
      * @swagger
      * /api/servicebook/delete/{id}:
      *   delete:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Service Book
      *     summary: Delete a servicebook by ID

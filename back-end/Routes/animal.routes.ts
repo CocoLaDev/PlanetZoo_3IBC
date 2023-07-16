@@ -17,6 +17,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/createAnimal:
          *   post:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Create a new animal
@@ -65,6 +67,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/getAnimalById/{id}:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Get an animal by ID
@@ -91,6 +95,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/getAnimals:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Get all animals
@@ -111,6 +117,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/updateAnimal/{id}:
          *   put:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Update an animal by ID
@@ -149,6 +157,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/deleteAnimal/{id}:
          *   delete:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Delete an animal by ID

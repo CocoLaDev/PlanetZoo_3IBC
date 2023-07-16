@@ -35,7 +35,6 @@ class Server {
     this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(this.authMiddleware.validateToken);
 
     const options = {
       definition: {
@@ -61,14 +60,14 @@ class Server {
   }
 
   private initializeRoutes(): void {
-    this.app.use('/api/users', userRoutes);
-    this.app.use('/api/zoo', zooRoutes)
-    this.app.use("/api/spaces", spaceRoutes);
-    this.app.use("/api/servicebook", servicebookRoutes);
-    this.app.use("/api/tickets", ticketRoutes);
-    this.app.use("/api/treatments", treatmentRoutes);
-    this.app.use("/api/animals", animalRoutes);
-    this.app.use('/api', checkticketsRoutes);
+    this.app.use('/api/users', this.authMiddleware.validateToken, userRoutes);
+    this.app.use('/api/zoo', this.authMiddleware.validateToken, zooRoutes)
+    this.app.use("/api/spaces", this.authMiddleware.validateToken, spaceRoutes);
+    this.app.use("/api/servicebook", this.authMiddleware.validateToken, servicebookRoutes);
+    this.app.use("/api/tickets", this.authMiddleware.validateToken, ticketRoutes);
+    this.app.use("/api/treatments", this.authMiddleware.validateToken, treatmentRoutes);
+    this.app.use("/api/animals", this.authMiddleware.validateToken, animalRoutes);
+    this.app.use('/api', this.authMiddleware.validateToken, checkticketsRoutes);
   }
 
   private initializeErrorHandling(): void {

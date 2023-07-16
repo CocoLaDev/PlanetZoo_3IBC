@@ -18,6 +18,8 @@ class UserRoutes {
      * @swagger
      * /api/users/createUsers:
      *   post:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Create a new user
@@ -57,6 +59,8 @@ class UserRoutes {
      * @swagger
      * /api/users/getAllUsers:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Get all users
@@ -72,6 +76,8 @@ class UserRoutes {
      * @swagger
      * /api/users/adminArea:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Access the admin area
@@ -93,6 +99,8 @@ class UserRoutes {
      * @swagger
      * /api/users/employeeArea:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Access the employee area
@@ -114,6 +122,8 @@ class UserRoutes {
      * @swagger
      * /api/users/veterinarianArea:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Access the veterinarian area
@@ -135,6 +145,8 @@ class UserRoutes {
      * @swagger
      * /api/users/login:
      *   post:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Log in a user
@@ -163,6 +175,8 @@ class UserRoutes {
      * @swagger
      * /api/users/getUserById/{id}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Get a user by id
@@ -185,6 +199,8 @@ class UserRoutes {
      * @swagger
      * /api/users/updateUser/{id}:
      *   put:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Update a user by id
@@ -222,6 +238,8 @@ class UserRoutes {
      * @swagger
      * /api/users/deleteUser/{id}:
      *   delete:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Delete a user by id

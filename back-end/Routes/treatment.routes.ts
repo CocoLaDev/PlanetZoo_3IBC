@@ -18,6 +18,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/getalltreatments:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Get all treatments
@@ -35,6 +37,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/gettreatmentbyid/{id}:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Get treatment by id
@@ -60,6 +64,8 @@ class TreatmentRoutes {
  * @swagger
  * /api/treatments/createtreatment:
  *   post:
+ *     security:
+ *       - BearerAuth: []
  *     tags:
  *       - Treatments
  *     summary: Create a new treatment
@@ -98,6 +104,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/updatetreatment/{id}:
          *   put:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Update a treatment by id
@@ -145,6 +153,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/deletetreatment/{id}:
          *   delete:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Delete a treatment by id

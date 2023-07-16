@@ -24,8 +24,11 @@ export class AuthMiddleware {
     res: Response,
     next: NextFunction
   ): Response | void {
+
+    console.log(req.path);
     
-    if (req.path === '/api/users/login' || req.path === '/api/users/createUsers') {
+    
+    if (req.path === '/login' || req.path === '/createUsers') {
         return next();
     }
 

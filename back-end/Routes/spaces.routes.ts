@@ -68,6 +68,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/getspacebyid/{id}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Retrieve a space by ID
@@ -94,6 +96,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/createspace:
      *   post:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Create a new space
@@ -138,6 +142,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/update/{id}:
      *   put:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Update a space by ID
@@ -188,6 +194,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/delete/{id}:
      *   delete:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Delete a space by ID
@@ -214,6 +222,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/maintenance/{id}:
      *   put:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Update a space by ID
@@ -237,6 +247,8 @@ class SpacesRoutes {
      * @swagger
      * /api/spaces/maintenanceoff/{id}:
      *   put:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Spaces
      *     summary: Update a space by ID

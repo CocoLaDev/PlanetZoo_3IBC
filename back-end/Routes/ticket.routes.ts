@@ -17,11 +17,11 @@ class TicketRoutes {
  * @swagger
  * /api/tickets/createTicket:
  *   post:
+ *     security:
+ *       - BearerAuth: []
  *     tags:
  *       - Tickets
  *     summary: Create a new ticket
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -70,11 +70,11 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/getTicket/{id}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get a ticket by id
-     *     security:
-     *       - bearerAuth: []
      *     parameters:
      *       - name: id
      *         description: Id of the ticket.
@@ -100,6 +100,8 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/getTicketByUser/{userId}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get a ticket by userId
@@ -127,6 +129,8 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/count-by-space:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get the count of tickets by space
@@ -142,6 +146,8 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/daily-count:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get the daily count of tickets by space
@@ -160,6 +166,8 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/weekly-count:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get the weekly count of tickets by space

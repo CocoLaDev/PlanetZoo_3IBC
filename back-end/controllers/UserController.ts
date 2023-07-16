@@ -78,18 +78,18 @@ class UserController {
         res.status(400).json({ message: 'Username is already in use' });
         return;
       }
-      
+
       // Hash password
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       // Map through the array of objects and extract only the `value` property
-      // const mappedDays = assignedDays.map((day: { value: string; label: string; }) => day.value);
+      const mappedDays = assignedDays?.map((day: { value: string; label: string; }) => day.value);
 
       user.username = username;
       if (password) user.password = hashedPassword;
       user.role = role;
-      // user.assignedDays = mappedDays;
+      if (assignedDays) user.assignedDays = mappedDays;
 
       await user.save();
 
