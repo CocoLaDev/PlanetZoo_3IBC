@@ -84,12 +84,13 @@ class UserController {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       // Map through the array of objects and extract only the `value` property
-      const mappedDays = assignedDays?.map((day: { value: string; label: string; }) => day.value);
-
+      // const mappedDays = assignedDays?.map((day: { value: string; label: string; }) => day.value);
+      console.log(assignedDays);
+      
       user.username = username;
       if (password) user.password = hashedPassword;
       user.role = role;
-      if (assignedDays) user.assignedDays = mappedDays;
+      if (assignedDays) user.assignedDays = assignedDays;
 
       await user.save();
 

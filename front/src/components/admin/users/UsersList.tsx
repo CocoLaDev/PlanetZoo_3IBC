@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { User, UserRole } from "../../../dto";
 import { Users } from "../../../services";
 import axios, { CancelToken } from "axios";
@@ -33,12 +33,15 @@ const UsersList = () => {
         }
     }
 
-    async function updatePassword(user: User, password: string, role: UserRole) {
-        console.log(password, role);
+    async function updateUser(user: User, password: string, role: UserRole) {
+        const selectElement = document.getElementById(`AssignedDays${user._id}`) as HTMLSelectElement;
+        const selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+        console.log(selectedValues);
         const newUser: User = {
             ...user,
             password,
-            role
+            role,
+            assignedDays: selectedValues.length > 0 ? selectedValues : undefined
         }
         const response = await Users.update(newUser);
         if (response) {
@@ -73,6 +76,11 @@ const UsersList = () => {
                                 <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     Role
                                 </th>
+                                {role !== UserRole.VISITOR &&
+                                    <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                        Assigned Days
+                                    </th>
+                                }
                                 <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                     Update
                                 </th>
@@ -99,8 +107,19 @@ const UsersList = () => {
                                             <option value={UserRole.ADMIN}>Admin</option>
                                         </select>
                                     </td>
+                                    {role !== UserRole.VISITOR &&
+                                        <td className="text-center px-4 py-2 text-gray-700">
+                                            <select multiple className="rounded-xl border p-2 text-sm focus:outline-none focus:border-teal-500 transition h-12" id={`AssignedDays${user._id}`} defaultValue={user.assignedDays}>
+                                                <option value="Sunday">Sunday</option>
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                            </select>
+                                        </td>
+                                    }
                                     <td className="text-center px-4 py-2 text-teal-700">
-                                        <button onClick={() => updatePassword(user, (document.getElementById(`Password${user._id}`) as HTMLInputElement).value, (document.getElementById(`Role${user._id}`) as HTMLSelectElement).value as UserRole)}>
+                                        <button onClick={() => updateUser(user, (document.getElementById(`Password${user._id}`) as HTMLInputElement).value, (document.getElementById(`Role${user._id}`) as HTMLSelectElement).value as UserRole)}>
                                             {userModified?._id === user._id ?
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                                 :

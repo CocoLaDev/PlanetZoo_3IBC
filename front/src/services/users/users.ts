@@ -48,6 +48,7 @@ export class Users {
                 username: user.username,
                 password: user.password,
                 role: user.role,
+                assignedDays: user.assignedDays
             }, {
                 cancelToken: token,
                 headers: {
