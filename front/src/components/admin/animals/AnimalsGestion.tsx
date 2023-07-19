@@ -4,17 +4,21 @@ import { Animals, Spaces } from "../../../services";
 import ListAnimal from "./ListAnimals";
 import EditAnimal from "./EditAnimal";
 import axios, { CancelToken } from "axios";
-import { Space } from "../../../dto";
+import { Space, UserRole } from "../../../dto";
+import Treatments from "./Treatments";
+import { useUserContext } from "../../../utils/user.context";
 
 const GestionAnimals = () => {
     const [animals, setAnimals] = useState<Animal[]>([]);
     const [animal, setAnimal] = useState<Animal | null>(null);
     const [spaces, setSpaces] = useState<Space[]>([]);
 
+    const { data } = useUserContext().user;
+
     const fetchAnimals = async (cancelToken?: CancelToken) => {
-        const data = await Animals.getAnimals(cancelToken);
-        console.log(data);
-        if (data) setAnimals(data);
+        const response = await Animals.getAnimals(cancelToken);
+        console.log(response);
+        if (response) setAnimals(response);
     };
     useEffect(() => {
         const cancelTokenSource = axios.CancelToken.source();
@@ -26,8 +30,8 @@ const GestionAnimals = () => {
 
     useEffect(() => {
         const fetchSpaces = async () => {
-            const data = await Spaces.getAllSpaces(cancelTokenSource.token);
-            if (data) setSpaces(data);
+            const response = await Spaces.getAllSpaces(cancelTokenSource.token);
+            if (response) setSpaces(response);
         };
         const cancelTokenSource = axios.CancelToken.source();
         fetchSpaces();
@@ -39,7 +43,12 @@ const GestionAnimals = () => {
             {animal === null ?
                 <ListAnimal animals={animals} setAnimal={setAnimal} fetchAnimals={fetchAnimals} spaces={spaces} />
                 :
-                <EditAnimal animal={animal} setAnimal={setAnimal} spaces={spaces} />
+                <div>
+                    <EditAnimal animal={animal} setAnimal={setAnimal} spaces={spaces} />
+                    {data?.role === UserRole.VETERINARIAN &&
+                        <Treatments animal={animal} />
+                    }
+                </div>
             }
         </div>
     );

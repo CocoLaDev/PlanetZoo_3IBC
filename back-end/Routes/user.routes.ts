@@ -89,7 +89,7 @@ class UserRoutes {
      */
     this.router.get(
       "/adminArea",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the admin area" });
       }
@@ -112,7 +112,7 @@ class UserRoutes {
      */
     this.router.get(
       "/employeeArea",
-      this.authMiddleware.isRole("employee"),
+      this.authMiddleware.isRole(["employee"]),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the employee area" });
       }
@@ -135,7 +135,7 @@ class UserRoutes {
      */
     this.router.get(
       "/veterinarianArea",
-      this.authMiddleware.isRole("veterinarian"),
+      this.authMiddleware.isRole(["veterinarian"]),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the veterinarian area" });
       }

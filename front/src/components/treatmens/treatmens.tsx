@@ -34,10 +34,9 @@ export const TreatmensComponent = () => {
 
     async function createTreatmen() {
         try {
-            const newTreatmen = await Treatmens.createTreatmen(
-                "64adc35349e324d59aca9863",
-                "string",
-                "2021-10-10",
+            const newTreatmen = await Treatmens.createTreatment(
+                "64b2b6ffaa3bc11ab387d3e9",
+                "649db96b5f877c7ecc3fac4c",
                 "test"
             )
             const allTreatmens = await Treatmens.getAllTreatmens()

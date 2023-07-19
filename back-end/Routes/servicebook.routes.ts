@@ -28,7 +28,7 @@ class ServicebookRoutes {
      */
     this.router.get(
       "/getallservicebooks",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       ServicebookController.getAllServiceBook
     );
 
@@ -62,7 +62,7 @@ class ServicebookRoutes {
      */
     this.router.get(
       "/getservicebookbyid/:id",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       ServicebookController.getServiceBookById
     );
 
@@ -87,7 +87,7 @@ class ServicebookRoutes {
      */
     this.router.post(
       "/createservicebook",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       ServicebookController.createServiceBook
     );
 
@@ -118,7 +118,7 @@ class ServicebookRoutes {
      */
     this.router.put(
       "/update/:id",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       ServicebookController.updateServiceBook
     );
 
@@ -143,7 +143,7 @@ class ServicebookRoutes {
      */
     this.router.delete(
       "/delete/:id",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       ServicebookController.deleteServiceBook
     );
 

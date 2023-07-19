@@ -88,7 +88,7 @@ export class Treatmens {
         return false;
     }
 
-    static async createTreatmen(animalId: string, veterinarianId: string, date: string, treatmentDescription: string, token?: CancelToken): Promise <boolean> {
+    static async createTreatment(animalId: string, veterinarianId: string, treatmentDescription: string, token?: CancelToken): Promise <boolean> {
         try {
             const userToken = localStorage.getItem("token");
             if (userToken === null) throw new Error("No token found");
@@ -101,11 +101,10 @@ export class Treatmens {
             const body = {
                 animalId: animalId,
                 veterinarianId: veterinarianId,
-                date: date,
                 treatmentDescription: treatmentDescription
             };
 
-            const response = await axios.post('http://localhost:3000/api/treatmens/createtreatment',body, {
+            const response = await axios.post('http://localhost:3000/api/treatments/createtreatment',body, {
                 cancelToken: token,
                 headers: headers
             });

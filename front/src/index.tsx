@@ -40,6 +40,19 @@ const AdminWrapper = () => {
   );
 }
 
+const VeterinarianWrapper = () => {
+  const { data } = useUserContext().user;
+  return (
+    <div className='mr-32'>
+      {data?.role === UserRole.VETERINARIAN ?
+        <AnimalsGestion />
+        :
+        <Error404 />
+      }
+    </div>
+  );
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -67,6 +80,8 @@ root.render(
             <Route path='Animals' element={<AnimalsGestion />} />
             <Route path='Users' element={<UsersList />} />
           </Route>
+
+          <Route path='/Veterinarian' element={<VeterinarianWrapper />} />
 
           <Route path="*" element={<Error404 />} />
         </Routes>

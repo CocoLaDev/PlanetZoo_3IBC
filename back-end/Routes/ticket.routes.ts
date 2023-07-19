@@ -62,7 +62,7 @@ class TicketRoutes {
  */
     this.router.post(
       "/createTicket",
-      // this.authMiddleware.isRole("admin"),
+      // this.authMiddleware.isRole(["admin"]),
       TicketController.createTicket
     );
 
@@ -92,7 +92,7 @@ class TicketRoutes {
      */
     this.router.get(
       "/getTicket/:id",
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       TicketController.getTicket
     );
 

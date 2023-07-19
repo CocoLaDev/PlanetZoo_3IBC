@@ -28,7 +28,7 @@ const ListAnimal = ({ animals, setAnimal, fetchAnimals, spaces }: AnimalsProps) 
             <div className="flex justify-end w-full h-10 mb-2">
                 <select className="w-1/4 rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" onChange={(e) => { setSpaceId(e.target.value); console.log(e.target.value) }}>
                     {spaces.map((space) => (
-                        <option value={space._id}>{space.name}</option>
+                        <option key={space._id} value={space._id}>{space.name}</option>
                     ))}
                 </select>
             </div>

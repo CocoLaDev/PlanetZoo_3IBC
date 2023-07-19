@@ -92,7 +92,7 @@ const EditAnimal = ({ animal, setAnimal, spaces }: AnimalProps) => {
                             <label htmlFor="duration" className="text-sm text-gray-600">Space</label>
                             <select className="w-full rounded-lg border-gray-200 border p-2 text-sm placeholder:text-black" id="spaceId" defaultValue={animal.spaceId}>
                                 {spaces.map((space) => (
-                                    <option value={space._id}>{space.name}</option>
+                                    <option key={space._id} value={space._id}>{space.name}</option>
                                 ))}
                             </select>
                         </div>
