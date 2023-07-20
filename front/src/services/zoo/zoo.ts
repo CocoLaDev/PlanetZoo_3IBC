@@ -12,6 +12,7 @@ export class Zoo {
                 }
             });
             if (response.data) {
+                console.log('visit', response.data)
                 return response.data.canOpen;
             }
         } catch (err: unknown) {
@@ -19,4 +20,29 @@ export class Zoo {
         }
         return null;
     }
+
+    static async updateSpaceCapacity(id: string, action: 'add' | 'remove', token?: CancelToken): Promise<string | null> {
+        try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
+            const headers = {
+                Authorization: `Bearer ${userToken}`
+            };
+
+            const response = await axios.put(`http://localhost:3000/api/spaces/checkcapacity/${id}`, {
+                action: action
+            }, {
+                cancelToken: token,
+                headers: headers
+            });
+            if (response.data) {
+                console.log(response.data)
+                return response.data;
+            }
+        } catch (err: unknown) {
+            return null;
+        }
+        return null;
+    }
+
 }

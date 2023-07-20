@@ -11,4 +11,5 @@ export interface ISpace extends Document {
   handicappedAccess: boolean;
   status: boolean;
   lastMaintenance: Date;
+  currentVisitors: number;
 }

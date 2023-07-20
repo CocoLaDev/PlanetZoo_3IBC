@@ -11,6 +11,7 @@ export interface SpacesInterface extends Document {
   handicappedAccess?: boolean;
   lastMaintenance?: Date;
   status?: boolean;
+  currentVisitors?: number;
 }
 
 const spaceschema = new mongoose.Schema({
@@ -52,6 +53,9 @@ const spaceschema = new mongoose.Schema({
   },
   lastMaintenance: {
     type: String,
+  },
+  currentVisitors: {
+    type: Number,
   },
 });
 

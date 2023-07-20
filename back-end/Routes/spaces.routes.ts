@@ -124,6 +124,8 @@ class SpacesRoutes {
      *                 type: string
      *               disabledAccess:
      *                 type: boolean
+     *               currentVisitors:
+     *                 type: number
      *             required:
      *               - spacename
      *     responses:
@@ -245,27 +247,47 @@ class SpacesRoutes {
 
     /**
      * @swagger
-     * /api/spaces/maintenanceoff/{id}:
+     * /api/spaces/checkcapacity/{id}:
      *   put:
      *     security:
      *       - BearerAuth: []
      *     tags:
      *       - Spaces
-     *     summary: Update a space by ID
+     *     summary: Modify the visitor count of a space
+     *     description: Checks if the space is full or if there is still room for more visitors, then adds or removes a visitor based on the action parameter
      *     parameters:
      *       - in: path
      *         name: id
-     *         required: true
      *         schema:
      *           type: string
+     *         required: true
+     *         description: The id of the space
+     *     requestBody:
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               action:
+     *                 type: string
+     *                 enum: [add, remove]
+     *                 description: The action to perform
+     *             required:
+     *               - action
      *     responses:
      *       200:
-     *         description: The updated space.
+     *         description: Space checked successfully, returning the space data
+     *       400:
+     *         description: Space is full or invalid action
+     *       404:
+     *         description: Space not found
+     *       500:
+     *         description: Server error
      */
     this.router.put(
-      "/maintenanceoff/:id",
-      // this.authMiddleware.isRole(["admin"]),
-      SpaceController.maintenanceOffSpace
+      "/checkcapacity/:id",
+      // this.authMiddleware.isRole(["admin", "user"]), // Uncomment this if you want to restrict access
+      SpaceController.getSpaceCapacity
     );
   }
 }

@@ -14,10 +14,13 @@ export class Tickets {
                     userId: userId,
                     allowedSpaces: ticket.allowedSpaces,
                     escapeGameOrder: ticket.escapeGameOrder,
+
+                },
+                {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     }
-                },
+                }
             );
             return response.data;
         } catch (error) {

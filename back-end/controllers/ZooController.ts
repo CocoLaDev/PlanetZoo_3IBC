@@ -11,7 +11,7 @@ class ZooController {
       const users = await User.find({ assignedDays: day });
 
       const counts = {
-        accueilAgent: 0,
+        employee: 0,
         veterinarian: 0,
         entretienAgent: 0,
         seller: 0,
@@ -24,7 +24,7 @@ class ZooController {
       }
 
       if (
-        counts.accueilAgent >= 1 &&
+        counts.employee >= 1 &&
         counts.veterinarian >= 1 &&
         counts.entretienAgent >= 1 &&
         counts.seller >= 1

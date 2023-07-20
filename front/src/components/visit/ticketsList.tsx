@@ -28,6 +28,8 @@ const TicketsList = ({ setTicketChoosed }: TicketsParams) => {
         return () => cancelTokenSource.cancel();
     }, [data]);
 
+    // marquer le ticket avec la route du back
+
     return (
         <div className="overflow-y-scroll h-[calc(55vh-60px)] flex gap-2 flex-wrap justify-center">
             {tickets.map((ticket, index) => (

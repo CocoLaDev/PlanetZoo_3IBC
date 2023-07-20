@@ -65,7 +65,7 @@ class SpaceController {
         new: true,
       });
       console.log(req.body);
-      
+
       res.status(200).send({ message: "Espace modifié avec succès" });
     } catch (err) {
       res.status(500).send(err);
@@ -120,6 +120,42 @@ class SpaceController {
       res.status(500).send(err);
     }
   }
+
+  public async getSpaceCapacity(req: Request, res: Response): Promise<void> {
+    // check the space capacity
+    try {
+      const spaceId = req.params.id;
+      const space = await Space.findById(spaceId);
+      console.log(space)
+      if (space && space.currentVisitors !== undefined && space.capacity) {
+        if (req.body.action === 'add') {
+          if (space.currentVisitors < space.capacity) {
+            space.currentVisitors++;
+            await space.save();
+            res.status(200).send({ message: "Visitor added successfully", space });
+          } else {
+            res.status(400).send({ message: "Space is full" });
+          }
+        } else if (req.body.action === 'remove') {
+          if (space.currentVisitors > 0) {
+            space.currentVisitors--;
+            await space.save();
+            res.status(200).send({ message: "Visitor removed successfully", space });
+          } else {
+            res.status(400).send({ message: "No visitors to remove" });
+          }
+        } else {
+          res.status(400).send({ message: "Invalid action" });
+        }
+      } else {
+        res.status(404).send({ message: "Space not found" });
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+
+
 }
 
 export default new SpaceController();

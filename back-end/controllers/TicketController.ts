@@ -109,6 +109,18 @@ class TicketController {
     res.status(200).json(tickets);
   }
 
+    // Marquer le ticket
+  public async markTicket(req: Request, res: Response): Promise<void> {
+    const { userId } = req.params;
+    const tickets = await Ticket.find({ userId: userId });
+    if (!tickets) {
+      res.status(404).json({ message: "Tickets not found" });
+      return;
+    }
+    res.status(200).json(tickets);
+  }
+
+
   public async getTicketCountBySpace(req: Request, res: Response): Promise<void> {
     const ticketCounts = await Ticket.aggregate([
       {
@@ -151,6 +163,8 @@ class TicketController {
 
     res.status(200).json(ticketCounts);
   }
+
+
 
   public async getDailyTicketCountBySpace(
     req: Request,
