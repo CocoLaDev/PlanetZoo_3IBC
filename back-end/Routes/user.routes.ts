@@ -18,8 +18,6 @@ class UserRoutes {
      * @swagger
      * /api/users/createUsers:
      *   post:
-     *     security:
-     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Create a new user
@@ -145,8 +143,6 @@ class UserRoutes {
      * @swagger
      * /api/users/login:
      *   post:
-     *     security:
-     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Log in a user

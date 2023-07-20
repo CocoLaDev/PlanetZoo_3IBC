@@ -1,6 +1,7 @@
 import { Space } from "../../../dto/spaces";
 import { Spaces } from "../../../services";
 import Enclos from "../../visit/enclos";
+import ServiceBook from "./book";
 
 interface SpaceProps {
     space: Space;
@@ -22,7 +23,7 @@ const EditSpace = ({ space, setSpace }: SpaceProps) => {
     };
 
     return (
-        <div className="m-8 h-[calc(100%-64px)]">
+        <div className="m-8 h-[calc(100%-64px)] overflow-y-scrole">
             <div className="flex justify-between pb-2">
                 <h1 className="text-2xl font-bold">Edit Space</h1>
                 <button onClick={() => setSpace(null)} className="flex gap-1 items-center">
@@ -149,6 +150,7 @@ const EditSpace = ({ space, setSpace }: SpaceProps) => {
                     </div>
                 </form>
             </div>
+            <ServiceBook space={space} />
         </div>
     );
 };

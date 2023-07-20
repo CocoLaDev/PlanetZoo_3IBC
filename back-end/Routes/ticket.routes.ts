@@ -96,34 +96,34 @@ class TicketRoutes {
       TicketController.getTicket
     );
 
-      /**
-     * @swagger
-     * /api/tickets/getTicketByUser/{userId}:
-     *   get:
-     *     security:
-     *       - BearerAuth: []
-     *     tags:
-     *       - Tickets
-     *     summary: Get a ticket by userId
-     *     parameters:
-     *       - name: userId
-     *         description: Id of the user.
-     *         in: path
-     *         required: true
-     *         schema:
-     *           type: string
-     *     responses:
-     *       200:
-     *         description: Ticket data
-     *       404:
-     *         description: Ticket not found
-     *       401:
-     *         description: Unauthorized
-     */
-      this.router.get(
-        "/getTicketByUser/:userId",
-        TicketController.getTicketsByUser
-      );
+    /**
+   * @swagger
+   * /api/tickets/getTicketByUser/{userId}:
+   *   get:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Tickets
+   *     summary: Get a ticket by userId
+   *     parameters:
+   *       - name: userId
+   *         description: Id of the user.
+   *         in: path
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Ticket data
+   *       404:
+   *         description: Ticket not found
+   *       401:
+   *         description: Unauthorized
+   */
+    this.router.get(
+      "/getTicketByUser/:userId",
+      TicketController.getTicketsByUser
+    );
 
     /**
      * @swagger
@@ -179,6 +179,26 @@ class TicketRoutes {
      */
     this.router.get(
       "/weekly-count",
+      TicketController.getWeeklyTicketCountBySpace
+    );
+
+    /**
+     * @swagger
+     * /api/tickets/visit-space:
+     *   get:
+     *     security:
+     *       - BearerAuth: []
+     *     tags:
+     *       - Tickets
+     *     summary: Get the weekly count of tickets by space
+     *     responses:
+     *       200:
+     *         description: Weekly count of tickets by space
+     *       400:
+     *         description: Bad request
+     */
+    this.router.get(
+      "/visit-space",
       TicketController.getWeeklyTicketCountBySpace
     );
 
