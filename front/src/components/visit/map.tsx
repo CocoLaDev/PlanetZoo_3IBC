@@ -1,17 +1,20 @@
 import map from "../../assets/map.jpeg"
+import { Space } from "../../dto";
 import "./style.css";
 
 interface MapProps {
-    handleClick: (arg0: string, arg1?: string) => void;
+    handleClick: (arg0: Space, arg1: string) => void;
+    spaces: Space[];
 }
 
-const Map = ({ handleClick }: MapProps) => { 
+const Map = ({ handleClick, spaces }: MapProps) => { 
     return (
       <div className="relative h-[90%] w-full">
         <img src={map} alt="map" className="h-full w-full" />
         <button
-          className="button absolute top-14 left-1/4"
-          onClick={() => handleClick("farm.glb", "64b90a2361d5fc0758ff9475")}
+          className="button absolute top-14 left-1/4 disabled:"
+          onClick={() => handleClick(spaces.find((space)=>space.name === "Farm")!, spaces.find((space) => space.name === "Farm")?._id!)}
+          disabled={spaces.find((space) => space.name === "Farm")?.status === true}
         >
           <svg
             className="svgIcon"
@@ -25,7 +28,8 @@ const Map = ({ handleClick }: MapProps) => {
         </button>
         <button
           className="button absolute bottom-16 right-1/3 -mr-6"
-          onClick={() => handleClick("savane.glb")}
+          onClick={() => handleClick(spaces.find((space)=>space.name === "Savanna")!, spaces.find((space) => space.name === "Savanna")?._id!)}
+          disabled={spaces.find((space) => space.name === "Savanna")?.status === true}
         >
           <svg
             className="svgIcon"
@@ -39,7 +43,8 @@ const Map = ({ handleClick }: MapProps) => {
         </button>
         <button
           className="button absolute top-12 left-1/2 ml-20"
-          onClick={() => handleClick("forest.glb")}
+          onClick={() => handleClick(spaces.find((space)=>space.name === "Forest")!, spaces.find((space) => space.name === "Forest")?._id!)}
+          disabled={spaces.find((space) => space.name === "Forest")?.status === true}
         >
           <svg
             className="svgIcon"

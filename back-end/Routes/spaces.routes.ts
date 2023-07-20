@@ -247,6 +247,32 @@ class SpacesRoutes {
 
     /**
      * @swagger
+     * /api/spaces/maintenanceoff/{id}:
+     *   put:
+     *     security:
+     *       - BearerAuth: []
+     *     tags:
+     *       - Spaces
+     *     summary: Update a space by ID
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *     responses:
+     *       200:
+     *         description: The updated space.
+     */
+    this.router.put(
+      "/maintenanceoff/:id",
+      this.authMiddleware.validateToken,
+      this.authMiddleware.isRole(["admin"]),
+      SpaceController.maintenanceOffSpace
+    );
+
+    /**
+     * @swagger
      * /api/spaces/checkcapacity/{id}:
      *   put:
      *     security:
@@ -288,6 +314,47 @@ class SpacesRoutes {
       "/checkcapacity/:id",
       // this.authMiddleware.isRole(["admin", "user"]), // Uncomment this if you want to restrict access
       SpaceController.getSpaceCapacity
+    );
+
+    /**
+ * @swagger
+ * /api/spaces/getSpaceCapacity/{id}:
+ *   get:
+ *     security:
+ *       - BearerAuth: []
+ *     tags:
+ *       - Spaces
+ *     summary: Get a space's capacity and current visitor count by id
+ *     parameters:
+ *       - name: id
+ *         description: Id of the space.
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Space capacity and current visitors data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 capacity:
+ *                   type: number
+ *                 currentVisitors:
+ *                   type: number
+ *       404:
+ *         description: Space not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal Server Error
+ */
+    this.router.get(
+      "/getSpaceCapacity/:id",
+      // this.authMiddleware.isRole(["admin"]),
+      SpaceController.getSpaceCapacityById
     );
   }
 }

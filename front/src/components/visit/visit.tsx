@@ -3,40 +3,50 @@ import { useUserContext } from "../../utils/user.context";
 import Enclos from "./enclos";
 import Map from "./map";
 import TicketDetails from "./ticketDetails";
-import { Ticket } from "../../dto";
+import { Space, Ticket } from "../../dto";
 import TicketsList from "./ticketsList";
-import { Zoo } from "../../services";
+import { Spaces, Zoo } from "../../services";
 import axios from "axios";
 
 const Visit = () => {
 
 
   const [zooCanOpen, setZooCanOpen] = React.useState<boolean>(false);
-  const [enclosVisited, setEnclosVisited] = React.useState<boolean>(false);
+  const [space, setSpace] = React.useState<Space>();
   const [objectSource, setObjectSource] = React.useState<string>("");
   const [ticketChoosed, setTicketChoosed] = React.useState<Ticket>();
-  const [currentVisitors, setCurrentVisitors] = React.useState<number>(0);
+  const [spaces, setSpaces] = React.useState<Space[]>([]);
   // gérer la capacité de l'enclos
 
   const { data } = useUserContext().user;
 
-  function handleClick(source: string, spaceId?: string) {
-    setObjectSource(source);
-    setEnclosVisited(true);
-    if (!spaceId) return;
-    Zoo.updateSpaceCapacity(spaceId, "add");
+  async function handleClick(space: Space, spaceId: string) {
+    if (ticketChoosed?.allowedSpaces.includes(space.name)) {
+      const response = await Zoo.updateSpaceCapacity(spaceId, "add");
+      if (response) {
+        setSpace(space);
+      } else{
+        alert("Space is full !");
+      }
+    }else{
+      alert("You can't visit this space with this ticket !")
+    }
   }
 
   useEffect(() => {
-    async function getZoo() {
+    async function fetchData() {
       const response = await Zoo.zooCanOpen(cancelTokenSource.token);
       if (response) {
         console.log(response);
         setZooCanOpen(response);
       }
+      const spaces = await Spaces.getAllSpaces(cancelTokenSource.token);
+      if (spaces) {
+        setSpaces(spaces);
+      }
     }
     const cancelTokenSource = axios.CancelToken.source();
-    getZoo();
+    fetchData();
     return () => cancelTokenSource.cancel();
   }, []);
 
@@ -102,15 +112,16 @@ const Visit = () => {
                 Click on an area to visit it
               </p>
             </div>
-            {enclosVisited ? (
+            {space?._id ? (
               <div className="h-[90%]">
                 <Enclos
-                  setEnclosVisited={setEnclosVisited}
-                  objectSource={objectSource}
+                  setSpace={setSpace}
+                  space={space}
+
                 />
               </div>
             ) : (
-              <Map handleClick={handleClick} />
+              <Map handleClick={handleClick} spaces={spaces} />
             )}
           </div>
           <div className="w-[20%] pl-4">

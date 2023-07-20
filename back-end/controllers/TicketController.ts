@@ -160,8 +160,9 @@ class TicketController {
 
 
   public async markTicketAsUsed(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const ticket = await Ticket.findById(id);
+    const { ticketId } = req.params;
+    const ticket = await Ticket.findById(ticketId);
+    
     if (!ticket) {
       res.status(404).json({ message: "Ticket not found" });
       return;

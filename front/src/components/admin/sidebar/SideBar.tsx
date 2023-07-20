@@ -29,9 +29,9 @@ const SideBar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/Admin/States" className="flex bg-white hover:bg-teal-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
+                                <Link to="/Admin/Stats" className="flex bg-white hover:bg-teal-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" className="text-lg mr-4" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                                    States
+                                    Stats
                                 </Link>
                             </li>
                         </ul>

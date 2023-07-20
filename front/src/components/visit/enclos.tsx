@@ -3,23 +3,30 @@ import { Canvas, useFrame } from "react-three-fiber";
 import { Gltf, OrbitControls } from "@react-three/drei";
 import * as three from "three";
 import { Zoo } from "../../services";
+import { Space } from "../../dto";
 
 interface EnclosProps {
-  setEnclosVisited?: React.Dispatch<React.SetStateAction<boolean>>;
-  objectSource: string;
+  setSpace?: React.Dispatch<React.SetStateAction<Space | undefined>>;
+  space: Space;
 }
 
-const Enclos = ({ setEnclosVisited, objectSource }: EnclosProps) => {
+const Enclos = ({ setSpace, space }: EnclosProps) => {
   const obj = useRef<three.Mesh>(null!);
+
+  useEffect(() => {
+    return () => {
+      Zoo.updateSpaceCapacity(space._id, "remove");
+    }
+  }, []);
 
   return (
     <div className="w-full h-full relative">
-      {setEnclosVisited && (
+      {setSpace && (
         <button
           className="absolute top-2 left-2 z-10"
           onClick={() => {
-            setEnclosVisited(false);
-            Zoo.updateSpaceCapacity("64b90a2361d5fc0758ff9475", "remove");
+            setSpace(undefined);
+            Zoo.updateSpaceCapacity(space._id, "remove");
           }}
         >
           Exit
@@ -41,7 +48,7 @@ const Enclos = ({ setEnclosVisited, objectSource }: EnclosProps) => {
           <pointLight intensity={1.0} position={[5, 3, 5]} />
           <mesh ref={obj}>
             <Gltf
-              src={objectSource}
+              src={"/" + space.images}
               position={[0, -15, 0]}
               rotation={[0, -2, 0]}
             />

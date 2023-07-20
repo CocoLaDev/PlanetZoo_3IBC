@@ -33,7 +33,7 @@ const EditSpace = ({ space, setSpace }: SpaceProps) => {
             </div>
             <div className="flex gap-4 h-[84%]">
                 <div className="w-1/2 rounded-bl-3xl rounded-tr-3xl overflow-hidden">
-                    <Enclos objectSource={"/"+space.images} />
+                    <Enclos space={space} />
                 </div>
                 <form className="space-y-3 w-1/2"
                     onSubmit={async() => {

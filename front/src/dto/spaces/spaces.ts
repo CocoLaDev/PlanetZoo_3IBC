@@ -9,4 +9,6 @@ export interface Space {
     openingHours: string;
     disabledAccess: boolean;
     maintenance?: boolean;
+    currentVisitors?: number;
+    status?: boolean;
   }

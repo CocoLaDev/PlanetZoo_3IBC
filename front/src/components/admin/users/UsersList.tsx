@@ -35,13 +35,15 @@ const UsersList = () => {
 
     async function updateUser(user: User, password: string, role: UserRole) {
         const selectElement = document.getElementById(`AssignedDays${user._id}`) as HTMLSelectElement;
-        const selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+        let selectedValues: string[] = [];
+        if (selectElement)
+            selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
         console.log(selectedValues);
         const newUser: User = {
             ...user,
             password,
             role,
-            assignedDays: selectedValues.length > 0 ? selectedValues : undefined
+            assignedDays: selectedValues.length > 0 && selectedValues ? selectedValues : undefined
         }
         const response = await Users.update(newUser);
         if (response) {

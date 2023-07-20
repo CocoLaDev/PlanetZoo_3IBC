@@ -69,7 +69,7 @@ const Book = ({ space }: ServiceBookProps) => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" /><path d="M14 3v5h5M12 18v-6M9 15h6" /></svg>
                         </button>
                     </td>
-                    {serviceBook.map((service) => (
+                    {serviceBook?.map((service) => (
                         <tr className="odd:bg-gray-50" key={service._id}>
                             <td className="text-center px-4 py-2 text-gray-900">{service._id}</td>
                             <td className="text-center px-4 py-2 text-gray-700">{service.description}</td>

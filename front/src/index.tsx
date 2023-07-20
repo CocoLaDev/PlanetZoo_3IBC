@@ -20,6 +20,7 @@ import UsersList from './components/admin/users/UsersList';
 import AnimalsComponent from './components/animals/animals';
 import { TreatmensComponent } from './components/treatmens/treatmens';
 import Error404 from './components/404/404';
+import Stats from './components/admin/stats/stats';
 
 const AdminWrapper = () => {
   const { data } = useUserContext().user;
@@ -57,7 +58,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <UserProvider>
       <BrowserRouter>
         <Navbar />
@@ -79,6 +80,7 @@ root.render(
             <Route path='Spaces' element={<GestionSpaces />} />
             <Route path='Animals' element={<AnimalsGestion />} />
             <Route path='Users' element={<UsersList />} />
+            <Route path='Stats' element={<Stats />} />
           </Route>
 
           <Route path='/Veterinarian' element={<VeterinarianWrapper />} />
@@ -87,7 +89,7 @@ root.render(
         </Routes>
       </BrowserRouter>
     </UserProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

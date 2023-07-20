@@ -71,4 +71,44 @@ export class Tickets {
             return null;
         }
     }
+
+    static async getValidTickets(userId: string, token?: CancelToken): Promise<Ticket[] | null> {
+        try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
+            const response = await axios.get(
+                `http://localhost:3000/api/tickets/getValidTickets/${userId}`,
+                {
+                    cancelToken: token,
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    }
+                },
+            );
+            return response.data.validTickets;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    static async markTicketAsUsed(ticketId: string, token?: CancelToken): Promise<Ticket | null> {
+        try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
+            const response = await axios.get(
+                `http://localhost:3000/api/tickets/markTicketAsUsed/${ticketId}`,
+                {
+                    cancelToken: token,
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    }
+                },
+            );
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
 }

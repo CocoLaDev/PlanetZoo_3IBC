@@ -182,26 +182,63 @@ class TicketRoutes {
       TicketController.getWeeklyTicketCountBySpace
     );
 
-    /**
-     * @swagger
-     * /api/tickets/visit-space:
-     *   get:
-     *     security:
-     *       - BearerAuth: []
-     *     tags:
-     *       - Tickets
-     *     summary: Get the weekly count of tickets by space
-     *     responses:
-     *       200:
-     *         description: Weekly count of tickets by space
-     *       400:
-     *         description: Bad request
-     */
+  /**
+   * @swagger
+   * /api/tickets/getValidTickets/{userId}:
+   *   get:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Tickets
+   *     summary: Get a ticket by userId
+   *     parameters:
+   *       - name: userId
+   *         description: Id of the user.
+   *         in: path
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Ticket data
+   *       404:
+   *         description: Ticket not found
+   *       401:
+   *         description: Unauthorized
+   */
     this.router.get(
-      "/visit-space",
-      TicketController.getWeeklyTicketCountBySpace
+      "/getValidTickets/:userId",
+      TicketController.getValidTickets
     );
 
+    /**
+   * @swagger
+   * /api/tickets/markTicketAsUsed/{ticketId}:
+   *   get:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Tickets
+   *     summary: Get a ticket by userId
+   *     parameters:
+   *       - name: ticketId
+   *         description: Id of the ticket.
+   *         in: path
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Ticket data
+   *       404:
+   *         description: Ticket not found
+   *       401:
+   *         description: Unauthorized
+   */
+    this.router.get(
+      "/markTicketAsUsed/:ticketId",
+      TicketController.markTicketAsUsed
+    );
   }
 }
 

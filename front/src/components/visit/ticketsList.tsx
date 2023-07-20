@@ -15,11 +15,11 @@ const TicketsList = ({ setTicketChoosed }: TicketsParams) => {
 
     // faire la vérification des tickets et les marquer
 
-    
+
     useEffect(() => {
         async function getTickets() {
             if (data) {
-                const response = await Tickets.getTicketByUserId(data._id, cancelTokenSource.token);
+                const response = await Tickets.getValidTickets(data._id, cancelTokenSource.token);
                 console.log(response);
                 if (response) {
                     setTickets(response);
@@ -36,7 +36,12 @@ const TicketsList = ({ setTicketChoosed }: TicketsParams) => {
     return (
         <div className="overflow-y-scroll h-[calc(55vh-60px)] flex gap-2 flex-wrap justify-center">
             {tickets.map((ticket, index) => (
-                <div key={index} className="p-4 bg-white border rounded-xl text-gray-800 space-y-1 w-[49%] hover:border-teal-600 cursor-pointer" onClick={() => setTicketChoosed(ticket)}>
+                <div key={index} className="p-4 bg-white border rounded-xl text-gray-800 space-y-1 w-[49%] hover:border-teal-600 cursor-pointer"
+                    onClick={async() => {
+                        if(!ticket._id) return;
+                        await Tickets.markTicketAsUsed(ticket._id);
+                        setTicketChoosed(ticket)
+                    }}>
                     <div className="flex justify-between">
                         <p className="text-teal-600 text-xs">until {ticket.validUntil?.toString() || "..."}</p>
                         {ticket.escapeGameOrder && ticket.escapeGameOrder.length > 0 &&

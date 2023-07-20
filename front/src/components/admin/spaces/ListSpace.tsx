@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Space } from "../../../dto/spaces";
 import { Spaces } from "../../../services";
 
@@ -9,18 +9,31 @@ interface SpacesProps {
 
 const ListSpace = ({ spaces, setSpace }: SpacesProps) => {
 
-    async function setMaintenance (space: Space) {
-        if(space.maintenance) {
-            const data = await Spaces.setMaintenanceSpaceOff(space._id);
-            if(data) {
-                setSpace(null);
-            }
-        } else {
-            const data = await Spaces.setMaintenanceSpace(space._id);
-            if(data) {
-                setSpace(null);
-            }
+    const [spaceUpdated, setSpaceUpdated] = React.useState<boolean>(false);
+
+    useEffect(() => {
+        if (spaceUpdated) {
+            const x = setTimeout(() => {
+                setSpaceUpdated(false);
+            }, 2000);
+            return () => clearTimeout(x);
         }
+    }, [spaceUpdated]);
+
+    async function createSpace() {
+        const name = (document.getElementById("name") as HTMLInputElement).value;
+        const description = (document.getElementById("description") as HTMLInputElement).value;;
+        const images = (document.getElementById("images") as HTMLInputElement).value;
+        const type = (document.getElementById("type") as HTMLInputElement).value;
+        const capacity = (document.getElementById("capacity") as HTMLInputElement).value;
+        const openingHours = (document.getElementById("openingHours") as HTMLInputElement).value;
+        const duration = (document.getElementById("duration") as HTMLInputElement).value;
+        const disabledAccess = (document.getElementById("disabledAccess") as HTMLInputElement).checked;
+
+
+        const response = await Spaces.createSpace(name, description, images, type, parseInt(capacity), parseInt(duration), openingHours, disabledAccess);
+        if (response)
+            setSpaceUpdated(true);
     }
 
     return (
@@ -64,6 +77,42 @@ const ListSpace = ({ spaces, setSpace }: SpacesProps) => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
+                        <tr className="odd:bg-gray-50">
+                            <td className="text-center px-4 py-2 text-gray-900">
+                                <input type="text" id="name" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="text" id="description" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="text" id="images" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="text" id="type" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="number" id="capacity" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="time" id="openingHours" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="number" id="duration" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td className="text-center px-4 py-2 text-gray-700">
+                                <input type="checkbox" id="disabledAccess" className="w-full rounded-xl border p-2 mr-2 text-sm focus:outline-none focus:border-teal-500 transition" />
+                            </td>
+                            <td></td>
+                            <td className="text-center px-4 py-2 text-teal-700">
+                                <button onClick={createSpace}>
+                                    {spaceUpdated ?
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        :
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z" /><path d="M14 3v5h5M12 18v-6M9 15h6" /></svg>
+                                    }
+                                </button>
+                            </td>
+                        </tr>
                         {spaces.map((space) => (
                             <tr className="odd:bg-gray-50" key={space._id}>
                                 <td className="text-center px-4 py-2 text-gray-900">{space.name}</td>
@@ -77,9 +126,6 @@ const ListSpace = ({ spaces, setSpace }: SpacesProps) => {
                                 <td className="text-center px-4 py-2 text-gray-700">
                                     <p className="flex items-center justify-center gap-1">
                                         {space.maintenance ? "Yes" : "No"}
-                                        <button className="bg-teal-600 rounded-lg p-1.5" onClick={()=>setMaintenance(space)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" /></svg>
-                                        </button>
                                     </p>
                                 </td>
                                 <td className="text-center px-4 py-2 text-teal-700">

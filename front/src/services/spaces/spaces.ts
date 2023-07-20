@@ -164,4 +164,46 @@ export class Spaces {
         }
         return null;
     }
+
+    static async getSpaceCapacityById(type: string, token?: CancelToken): Promise<Space[] | null> {
+        try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
+
+            const response = await axios.get(`http://localhost:3000/api/spaces/getspacecapacity/${type}`, {
+                cancelToken: token,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
+            });
+            if (response.data) {
+                return response.status === 200 ? response.data : null;
+            }
+        } catch (err: unknown) {
+            return null;
+        }
+        return null;
+    }
+
+    static async checkcapacity(idSpace: string, action: string, token?: CancelToken): Promise<Space[] | null> {
+        try {
+            const userToken = localStorage.getItem("token");
+            if (userToken === null) throw new Error("No token found");
+
+            const response = await axios.put(`http://localhost:3000/api/spaces/checkcapacity/${idSpace}`, {
+                cancelToken: token,
+                action: action,
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
+            });
+            if (response.data) {
+                return response.data;
+            }
+        } catch (err: unknown) {
+            return null;
+        }
+        return null;
+    }
+
 }
