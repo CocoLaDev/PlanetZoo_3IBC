@@ -2,12 +2,14 @@ import { useParams } from "react-router-dom";
 import { ticketsArray } from "../../dto/tickets/tickets";
 import { Tickets } from "../../services";
 import { useEffect, useState } from "react";
+import { useUserContext } from "../../utils/user.context";
 
 const Ticket = () => {
 
     const { index } = useParams();
     const [ticketBuy, setTicketBuy] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const { data } = useUserContext().user;
 
     useEffect(() => {
         if (ticketBuy === true) {
@@ -39,7 +41,7 @@ const Ticket = () => {
 
                             <div className="p-8 sm:p-16 lg:p-24 w-full">
                                 <h2 className="text-2xl font-bold sm:text-3xl">
-                                    {ticketsArray[parseInt(index)].name}
+                                    {ticketsArray[parseInt(index)].type}
                                 </h2>
 
                                 <p className="mt-4 text-gray-600 text-justify">
@@ -124,12 +126,18 @@ const Ticket = () => {
                                         className="inline-block rounded border border-teal-600 bg-teal-600 px-12 py-3 font-bold text-white hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-teal-500"
                                         disabled={ticketBuy}
                                         onClick={async () => {
+                                            if(!data) return;
                                             setErrorMessage("");
-                                            const data = await Tickets.buy(ticketsArray[parseInt(index)], "649db96b5f877c7ecc3fac4c");
-                                            if (data?.message) {
-                                                setTicketBuy(true);
+                                            const response = await Tickets.buy(
+                                              ticketsArray[parseInt(index)],
+                                              data?._id
+                                            );
+                                            if (response?.message) {
+                                              setTicketBuy(true);
                                             } else {
-                                                setErrorMessage("An error occured, please try again later");
+                                              setErrorMessage(
+                                                "An error occured, please try again later"
+                                              );
                                             }
                                         }}
                                     >

@@ -17,6 +17,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/createAnimal:
          *   post:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Create a new animal
@@ -57,8 +59,7 @@ class AnimalRoutes {
          */
         this.router.post(
             "/createAnimal",
-            // this.authMiddleware.validateToken,
-            // this.authMiddleware.isRole("admin"),
+            this.authMiddleware.isRole(["admin", "veterinarian"]),
             AnimalController.createAnimal
         );
 
@@ -66,6 +67,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/getAnimalById/{id}:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Get an animal by ID
@@ -84,8 +87,7 @@ class AnimalRoutes {
          */
         this.router.get(
             "/getAnimalById/:id",
-            // this.authMiddleware.validateToken,
-            // this.authMiddleware.isRole("admin"),
+            // this.authMiddleware.isRole(["admin"]),
             AnimalController.getAnimalById
         );
 
@@ -93,6 +95,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/getAnimals:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Get all animals
@@ -105,8 +109,7 @@ class AnimalRoutes {
          */
         this.router.get(
             "/getAnimals",
-            // this.authMiddleware.validateToken,
-            // this.authMiddleware.isRole("admin"),
+            this.authMiddleware.isRole(["admin", "veterinarian"]),
             AnimalController.getAllAnimals
         );
 
@@ -114,6 +117,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/updateAnimal/{id}:
          *   put:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Update an animal by ID
@@ -144,8 +149,7 @@ class AnimalRoutes {
          */
         this.router.put(
             "/updateAnimal/:id",
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole("admin"),
+            this.authMiddleware.isRole(["admin", "veterinarian"]),
             AnimalController.updateAnimal
         );
 
@@ -153,6 +157,8 @@ class AnimalRoutes {
          * @swagger
          * /api/animals/deleteAnimal/{id}:
          *   delete:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Animals
          *     summary: Delete an animal by ID
@@ -171,8 +177,7 @@ class AnimalRoutes {
          */
         this.router.delete(
             "/deleteAnimal/:id",
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole("admin"),
+            this.authMiddleware.isRole(["admin", "veterinarian"]),
             AnimalController.deleteAnimal
         );
     }

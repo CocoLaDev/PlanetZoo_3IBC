@@ -2,8 +2,9 @@ import mongoose, { Document } from "mongoose";
 
 export interface ServicebookInterface extends Document {
   spaceId: string;
-  rateFrequency: number;
-  lastMaintenance: Date;
+  maintenanceStart: Date;
+  maintenanceEnd?: Date;
+  description: string;
 }
 
 const servicebookschema = new mongoose.Schema({
@@ -11,12 +12,14 @@ const servicebookschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rateFrequency: {
-    type: Number,
-    required: true,
-  },
-  lastMaintenance: {
+  maintenanceStart: {
     type: Date,
+  },
+  maintenanceEnd: {
+    type: Date,
+  },
+  description: {
+    type: String,
   },
 });
 

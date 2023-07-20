@@ -44,23 +44,23 @@ const AnimalsComponent = () => {
         }
     }
 
-    async function updateAnimal() {
-        try {
-            const animal = await Animals.updateAnimal(
-                "64adc35349e324d59aca9863",
-                "name2",
-                "species2",
-                2,
-                "description2",
-                "healthStatus2",
-                ["64adc43399e9b9000ae165f5", "64adc46699e9b9000ae165f6"],
-                "64a1933eff4c367aea4e3ff1"
-            );
-            console.log(animal);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // async function updateAnimal() {
+    //     try {
+    //         const animal = await Animals.updateAnimal(
+    //             "64adc35349e324d59aca9863",
+    //             "name2",
+    //             "species2",
+    //             2,
+    //             "description2",
+    //             "healthStatus2",
+    //             ["64adc43399e9b9000ae165f5", "64adc46699e9b9000ae165f6"],
+    //             "64a1933eff4c367aea4e3ff1"
+    //         );
+    //         console.log(animal);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     async function deleteAnimal() {
         try {

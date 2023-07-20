@@ -2,11 +2,12 @@ import { ObjectId } from "mongoose";
 
 interface ITicket {
   type: string;
-  userId: ObjectId;
+  userId: string;
   allowedSpaces: ObjectId[];
   validUntil?: Date;
   escapeGameOrder?: ObjectId[];
   validDays?: Date[];
+  used: boolean;
 }
 
 export default ITicket;

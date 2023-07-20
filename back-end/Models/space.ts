@@ -8,9 +8,10 @@ export interface SpacesInterface extends Document {
   capacity?: number;
   duration?: number;
   openingHours?: string;
-  disabledAccess?: boolean;
+  handicappedAccess?: boolean;
   lastMaintenance?: Date;
   status?: boolean;
+  currentVisitors?: number;
 }
 
 const spaceschema = new mongoose.Schema({
@@ -42,7 +43,7 @@ const spaceschema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  disabledAccess: {
+  handicappedAccess: {
     type: Boolean,
     required: false,
   },
@@ -52,6 +53,9 @@ const spaceschema = new mongoose.Schema({
   },
   lastMaintenance: {
     type: String,
+  },
+  currentVisitors: {
+    type: Number,
   },
 });
 

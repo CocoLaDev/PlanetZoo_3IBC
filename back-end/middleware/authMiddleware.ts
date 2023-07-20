@@ -24,6 +24,14 @@ export class AuthMiddleware {
     res: Response,
     next: NextFunction
   ): Response | void {
+
+    console.log(req.path);
+
+
+    if (req.path === '/login' || req.path === '/createUsers') {
+      return next();
+    }
+
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -49,40 +57,42 @@ export class AuthMiddleware {
       process.env.JWT_SECRET as string,
       (err: VerifyErrors | null, decoded: any) => {
         if (err) {
-            console.log('Token verification error:', err);
-            return res.status(401).json({ message: "Token invalid" });
+          console.log('Token verification error:', err);
+          return res.status(401).json({ message: "Token invalid" });
         }
 
         if (AuthMiddleware.isDecodedToken(decoded)) {
-            req.userId = decoded.userId;
-            req.userRole = decoded.role;
-            console.log("Decoded userId: ", decoded.userId);
-            console.log("Decoded role: ", decoded.role);
-            next();
-          } else {
-            console.log("Token invalid: decoded token is not as expected");
-            return res.status(401).json({ message: 'Token invalid' });
-          }
+          req.userId = decoded.userId;
+          req.userRole = decoded.role;
+          console.log("Decoded userId: ", decoded.userId);
+          console.log("Decoded role: ", decoded.role);
+          next();
+        } else {
+          console.log("Token invalid: decoded token is not as expected");
+          return res.status(401).json({ message: 'Token invalid' });
+        }
       }
     );
   }
 
-  public isRole(role: string) {
+  public isRole(roles: string[]) {
     return (
       req: Request,
       res: Response,
       next: NextFunction
     ): Response | void => {
       // Check if user role is as expected
-      if (req.userRole !== role) {
-          console.log("Unexpected user role: ", req.userRole);
-          console.log("Expected role: ", role);
-        return res.status(403).json({
-          message: `You are not authorized to perform this action, required role: ${role}`,
-        });
+      for (const role of roles) {
+        if (req.userRole === role) {
+          return next();
+        }
       }
 
-      return next();
+      console.log("Unexpected user role: ", req.userRole);
+      console.log("Expected roles: ", roles);
+      return res.status(403).json({
+        message: `You are not authorized to perform this action. Expected roles: ${roles}`,
+      });
     };
   }
 }

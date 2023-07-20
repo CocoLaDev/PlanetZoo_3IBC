@@ -3,6 +3,7 @@ import { Space } from "../../../dto/spaces";
 import { Spaces } from "../../../services";
 import ListSpace from "./ListSpace";
 import EditSpace from "./EditSpace";
+import axios from "axios";
 
 const GestionSpaces = () => {
     const [spaces, setSpaces] = useState<Space[]>([]);
@@ -10,14 +11,15 @@ const GestionSpaces = () => {
 
     useEffect(() => {
         const fetchSpaces = async () => {
-            const data = await Spaces.getAllSpaces();
-            console.log(data);
-
-            if (data)
-                setSpaces(data);
+            const data = await Spaces.getAllSpaces(cancelTokenSource.token);
+            if (data) setSpaces(data);
         };
-        fetchSpaces();
-    }, []);
+        const cancelTokenSource = axios.CancelToken.source();
+        if (space === null) {
+            fetchSpaces();
+        }
+        return () => cancelTokenSource.cancel();
+    }, [space]);
 
     return (
         <div className="w-full m-16 h-[71vh] bg-white rounded-xl">

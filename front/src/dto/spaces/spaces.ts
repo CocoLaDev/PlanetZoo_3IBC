@@ -8,4 +8,7 @@ export interface Space {
     duration: number;
     openingHours: string;
     disabledAccess: boolean;
+    maintenance?: boolean;
+    currentVisitors?: number;
+    status?: boolean;
   }

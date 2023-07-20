@@ -17,11 +17,11 @@ class TicketRoutes {
  * @swagger
  * /api/tickets/createTicket:
  *   post:
+ *     security:
+ *       - BearerAuth: []
  *     tags:
  *       - Tickets
  *     summary: Create a new ticket
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
@@ -36,6 +36,9 @@ class TicketRoutes {
  *                 type: array
  *                 items:
  *                   type: string
+ *               validUntil:
+ *                 type: string
+ *                 format: date-time
  *               escapeGameOrder:
  *                 type: array
  *                 items:
@@ -59,8 +62,7 @@ class TicketRoutes {
  */
     this.router.post(
       "/createTicket",
-      // this.authMiddleware.validateToken,
-      // this.authMiddleware.isRole("admin"),
+      // this.authMiddleware.isRole(["admin"]),
       TicketController.createTicket
     );
 
@@ -68,11 +70,11 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/getTicket/{id}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get a ticket by id
-     *     security:
-     *       - bearerAuth: []
      *     parameters:
      *       - name: id
      *         description: Id of the ticket.
@@ -90,15 +92,45 @@ class TicketRoutes {
      */
     this.router.get(
       "/getTicket/:id",
-      this.authMiddleware.validateToken,
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       TicketController.getTicket
+    );
+
+    /**
+   * @swagger
+   * /api/tickets/getTicketByUser/{userId}:
+   *   get:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Tickets
+   *     summary: Get a ticket by userId
+   *     parameters:
+   *       - name: userId
+   *         description: Id of the user.
+   *         in: path
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Ticket data
+   *       404:
+   *         description: Ticket not found
+   *       401:
+   *         description: Unauthorized
+   */
+    this.router.get(
+      "/getTicketByUser/:userId",
+      TicketController.getTicketsByUser
     );
 
     /**
      * @swagger
      * /api/tickets/count-by-space:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get the count of tickets by space
@@ -114,6 +146,8 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/daily-count:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get the daily count of tickets by space
@@ -132,6 +166,8 @@ class TicketRoutes {
      * @swagger
      * /api/tickets/weekly-count:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Tickets
      *     summary: Get the weekly count of tickets by space
@@ -146,6 +182,63 @@ class TicketRoutes {
       TicketController.getWeeklyTicketCountBySpace
     );
 
+  /**
+   * @swagger
+   * /api/tickets/getValidTickets/{userId}:
+   *   get:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Tickets
+   *     summary: Get a ticket by userId
+   *     parameters:
+   *       - name: userId
+   *         description: Id of the user.
+   *         in: path
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Ticket data
+   *       404:
+   *         description: Ticket not found
+   *       401:
+   *         description: Unauthorized
+   */
+    this.router.get(
+      "/getValidTickets/:userId",
+      TicketController.getValidTickets
+    );
+
+    /**
+   * @swagger
+   * /api/tickets/markTicketAsUsed/{ticketId}:
+   *   get:
+   *     security:
+   *       - BearerAuth: []
+   *     tags:
+   *       - Tickets
+   *     summary: Get a ticket by userId
+   *     parameters:
+   *       - name: ticketId
+   *         description: Id of the ticket.
+   *         in: path
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Ticket data
+   *       404:
+   *         description: Ticket not found
+   *       401:
+   *         description: Unauthorized
+   */
+    this.router.get(
+      "/markTicketAsUsed/:ticketId",
+      TicketController.markTicketAsUsed
+    );
   }
 }
 

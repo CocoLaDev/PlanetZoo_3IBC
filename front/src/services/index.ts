@@ -1,3 +1,6 @@
 export * from './users'
 export * from './spaces'
 export * from './tickets'
+export * from './treatmens'
+export * from './animals'
+export * from './zoo'

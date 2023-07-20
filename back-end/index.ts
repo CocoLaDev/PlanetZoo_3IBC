@@ -4,23 +4,26 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 
-import Database from './config/database';
-
-import userRoutes from './Routes/user.routes';
-import zooRoutes from './Routes/zoo.routes';
-import spaceRoutes from "./Routes/spaces.routes";
-import servicebookRoutes from "./Routes/servicebook.routes";
-import ticketRoutes from "./Routes/ticket.routes";
-import treatmentRoutes from "./Routes/treatment.routes";
-import animalRoutes from "./Routes/animal.routes";
+import userRoutes from './routes/user.routes';
+import zooRoutes from './routes/zoo.routes';
+import spaceRoutes from "./routes/spaces.routes";
+import servicebookRoutes from "./routes/servicebook.routes";
+import ticketRoutes from "./routes/ticket.routes";
+import treatmentRoutes from "./routes/treatment.routes";
+import animalRoutes from "./routes/animal.routes";
+import Database from "./config/database";
+import checkticketsRoutes from "./routes/checktickets.routes";
+import { AuthMiddleware } from "./middleware/authMiddleware";
 
 class Server {
   private app: express.Application;
   private port: number;
+  private authMiddleware: AuthMiddleware;
 
   constructor(port: number) {
     this.app = express();
     this.port = port;
+    this.authMiddleware = new AuthMiddleware();
   }
 
   private async initializeDatabase(): Promise<void> {
@@ -57,13 +60,14 @@ class Server {
   }
 
   private initializeRoutes(): void {
-    this.app.use('/api/users', userRoutes);
-    this.app.use('/api/zoo', zooRoutes)
-    this.app.use("/api/spaces", spaceRoutes);
-    this.app.use("/api/servicebook", servicebookRoutes);
-    this.app.use("/api/tickets", ticketRoutes);
-    this.app.use("/api/treatment", treatmentRoutes);
-    this.app.use("/api/animals", animalRoutes);
+    this.app.use('/api/users', this.authMiddleware.validateToken, userRoutes);
+    this.app.use('/api/zoo', this.authMiddleware.validateToken, zooRoutes)
+    this.app.use("/api/spaces", this.authMiddleware.validateToken, spaceRoutes);
+    this.app.use("/api/servicebook", this.authMiddleware.validateToken, servicebookRoutes);
+    this.app.use("/api/tickets", this.authMiddleware.validateToken, ticketRoutes);
+    this.app.use("/api/treatments", this.authMiddleware.validateToken, treatmentRoutes);
+    this.app.use("/api/animals", this.authMiddleware.validateToken, animalRoutes);
+    this.app.use('/api', this.authMiddleware.validateToken, checkticketsRoutes);
   }
 
   private initializeErrorHandling(): void {

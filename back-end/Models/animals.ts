@@ -24,11 +24,11 @@ const animalSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    healthStatus: {
+    description: {
         type: String,
         required: true,
     },
-    description: {
+    healthStatus: {
         type: String,
         required: true,
     },

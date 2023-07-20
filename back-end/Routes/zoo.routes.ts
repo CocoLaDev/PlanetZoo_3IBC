@@ -12,25 +12,13 @@ class ZooRoutes {
   public routes(): void {
     /**
      * @swagger
-     * /api/zoo/canZooOpen/{day}:
+     * /api/zoo/canZooOpen:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Zoo
-     *     summary: Check if zoo can open on a specific day
-     *     parameters:
-     *       - name: day
-     *         in: path
-     *         required: true
-     *         schema:
-     *           type: string
-     *           enum:
-     *             - "Monday"
-     *             - "Tuesday"
-     *             - "Wednesday"
-     *             - "Thursday"
-     *             - "Friday"
-     *             - "Saturday"
-     *             - "Sunday"
+     *     summary: Check if zoo can open today
      *     responses:
      *       200:
      *         description: The zoo can open
@@ -39,19 +27,19 @@ class ZooRoutes {
      *             schema:
      *               type: object
      *               properties:
-     *                 message:
-     *                   type: string
-     *       400:
-     *         description: The zoo cannot open
+     *                 canOpen:
+     *                   type: boolean
+     *       500:
+     *         description: There was an error checking if the zoo can open
      *         content:
      *           application/json:
      *             schema:
      *               type: object
      *               properties:
-     *                 message:
+     *                 error:
      *                   type: string
      */
-    this.router.get('/canZooOpen/:day', ZooController.canZooOpen);
+    this.router.get('/canZooOpen', ZooController.canZooOpen);
   }
 
 }

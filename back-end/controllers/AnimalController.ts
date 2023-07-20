@@ -76,7 +76,7 @@ class AnimalController {
             animal.healthStatus = healthStatus;
             animal.description = description;
             animal.treatments.push(...treatments);
-            
+
             await animal.save();
 
             res.status(200).json({ message: 'Animal updated successfully' });

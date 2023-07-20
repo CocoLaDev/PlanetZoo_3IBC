@@ -53,11 +53,29 @@ class UserRoutes {
      */
     this.router.post("/createUsers", userController.createUser);
 
+     /**
+     * @swagger
+     * /api/users/getAllUsers:
+     *   get:
+     *     security:
+     *       - BearerAuth: []
+     *     tags:
+     *       - Users
+     *     summary: Get all users
+     *     responses:
+     *       200:
+     *         description: An array of users
+     *       400:
+     *         description: Error
+     */
+     this.router.get("/getAllUsers", userController.getAllUsers);
 
     /**
      * @swagger
      * /api/users/adminArea:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Access the admin area
@@ -69,8 +87,7 @@ class UserRoutes {
      */
     this.router.get(
       "/adminArea",
-      this.authMiddleware.validateToken,
-      this.authMiddleware.isRole("admin"),
+      this.authMiddleware.isRole(["admin"]),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the admin area" });
       }
@@ -80,6 +97,8 @@ class UserRoutes {
      * @swagger
      * /api/users/employeeArea:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Access the employee area
@@ -91,7 +110,7 @@ class UserRoutes {
      */
     this.router.get(
       "/employeeArea",
-      this.authMiddleware.isRole("employee"),
+      this.authMiddleware.isRole(["employee"]),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the employee area" });
       }
@@ -101,6 +120,8 @@ class UserRoutes {
      * @swagger
      * /api/users/veterinarianArea:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Access the veterinarian area
@@ -112,7 +133,7 @@ class UserRoutes {
      */
     this.router.get(
       "/veterinarianArea",
-      this.authMiddleware.isRole("veterinarian"),
+      this.authMiddleware.isRole(["veterinarian"]),
       (req, res) => {
         res.status(200).json({ message: "Welcome to the veterinarian area" });
       }
@@ -148,8 +169,10 @@ class UserRoutes {
 
     /**
      * @swagger
-     * /api/users/getUser/{id}:
+     * /api/users/getUserById/{id}:
      *   get:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Get a user by id
@@ -166,12 +189,14 @@ class UserRoutes {
      *       404:
      *         description: User not found
      */
-    this.router.get("/getUser/:id", userController.getUserById);
+    this.router.get("/getUserById/:id", userController.getUserById);
 
     /**
      * @swagger
      * /api/users/updateUser/{id}:
      *   put:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Update a user by id
@@ -209,6 +234,8 @@ class UserRoutes {
      * @swagger
      * /api/users/deleteUser/{id}:
      *   delete:
+     *     security:
+     *       - BearerAuth: []
      *     tags:
      *       - Users
      *     summary: Delete a user by id

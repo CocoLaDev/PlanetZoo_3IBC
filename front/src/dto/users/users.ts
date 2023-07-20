@@ -3,7 +3,7 @@ export enum UserRole {
     VETERINARIAN = "veterinarian",
     EMPLOYEE = "employee",
     ENTRETIENAGENT = "entretienAgent",
-    SELLET = "seller",
+    SELLER = "seller",
     VISITOR = "visitor"
 }
 
@@ -12,7 +12,8 @@ export interface User{
     username: string,
     password: string,
     token: string,
-    role: UserRole
+    role: UserRole,
+    assignedDays?: string[]
 }
 
 export interface UserLogin{

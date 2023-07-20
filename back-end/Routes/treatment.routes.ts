@@ -18,6 +18,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/getalltreatments:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Get all treatments
@@ -27,8 +29,7 @@ class TreatmentRoutes {
          */
         this.router.get(
             '/getalltreatments',
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole('admin'),
+            // this.authMiddleware.isRole(['admin']),
             TreatmentController.getAllTreatments
         );
 
@@ -36,6 +37,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/gettreatmentbyid/{id}:
          *   get:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Get treatment by id
@@ -54,7 +57,6 @@ class TreatmentRoutes {
          */
         this.router.get(
             '/gettreatmentbyid/:id',
-            this.authMiddleware.validateToken,
             TreatmentController.getTreatmentById
         );
 
@@ -62,6 +64,8 @@ class TreatmentRoutes {
  * @swagger
  * /api/treatments/createtreatment:
  *   post:
+ *     security:
+ *       - BearerAuth: []
  *     tags:
  *       - Treatments
  *     summary: Create a new treatment
@@ -92,8 +96,7 @@ class TreatmentRoutes {
  */
         this.router.post(
             '/createtreatment',
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole('admin'),
+            this.authMiddleware.isRole(['veterinarian']),
             TreatmentController.createTreatment
         );
 
@@ -101,6 +104,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/updatetreatment/{id}:
          *   put:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Update a treatment by id
@@ -140,8 +145,7 @@ class TreatmentRoutes {
          */
         this.router.put(
             '/updatetreatment/:id',
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole('admin'),
+            this.authMiddleware.isRole(['veterinarian']),
             TreatmentController.updateTreatment
         );
 
@@ -149,6 +153,8 @@ class TreatmentRoutes {
          * @swagger
          * /api/treatments/deletetreatment/{id}:
          *   delete:
+         *     security:
+         *       - BearerAuth: []
          *     tags:
          *       - Treatments
          *     summary: Delete a treatment by id
@@ -167,8 +173,7 @@ class TreatmentRoutes {
          */
         this.router.delete(
             '/deletetreatment/:id',
-            this.authMiddleware.validateToken,
-            this.authMiddleware.isRole('admin'),
+            this.authMiddleware.isRole(['veterinarian']),
             TreatmentController.deleteTreatment
         );
     }
