@@ -121,6 +121,20 @@ class SpaceController {
     }
   }
 
+  public async getSpaceCapacityById(req: Request, res: Response): Promise<void> {
+    try {
+      const spaceId = req.params.id;
+      const space = await Space.findById(spaceId);
+      if (space && space.capacity && space.currentVisitors) {
+        res.status(200).send({ capacity: space.capacity, currentVisitors: space.currentVisitors });
+      } else {
+        res.status(404).send({ message: "Space not found" });
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+
   public async getSpaceCapacity(req: Request, res: Response): Promise<void> {
     // check the space capacity
     try {

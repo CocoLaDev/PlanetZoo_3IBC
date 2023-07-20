@@ -13,6 +13,9 @@ const TicketsList = ({ setTicketChoosed }: TicketsParams) => {
     const { data } = useUserContext().user;
     const [tickets, setTickets] = useState<Ticket[]>([]);
 
+    // faire la vérification des tickets et les marquer
+
+    
     useEffect(() => {
         async function getTickets() {
             if (data) {

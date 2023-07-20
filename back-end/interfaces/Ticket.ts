@@ -7,6 +7,7 @@ interface ITicket {
   validUntil?: Date;
   escapeGameOrder?: ObjectId[];
   validDays?: Date[];
+  used: boolean;
 }
 
 export default ITicket;

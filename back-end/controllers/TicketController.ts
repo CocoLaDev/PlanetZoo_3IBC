@@ -31,9 +31,17 @@ class TicketController {
         validUntil.setDate(validUntil.getDate() + 1);
         break;
       case "Week-end PASS":
+        const currentDayOfWeek = new Date().getDay();
+        const daysUntilSaturday = 6 - currentDayOfWeek;
         validUntil = new Date();
-        validUntil.setDate(validUntil.getDate() + 2);
+        if (currentDayOfWeek <= 5) {
+          validUntil.setDate(validUntil.getDate() + daysUntilSaturday + 1);
+        } else if (currentDayOfWeek === 6) {
+          validUntil.setDate(validUntil.getDate() + 1);
+        }
+        validUntil.setHours(23, 59, 59, 999);
         break;
+
       case "1daymonth PASS":
         const currentDate = new Date();
         validUntil = new Date(
@@ -80,6 +88,7 @@ class TicketController {
       escapeGameOrder,
       validUntil,
       validDays,
+      used: false,
     });
 
     await newTicket.save();
@@ -109,16 +118,63 @@ class TicketController {
     res.status(200).json(tickets);
   }
 
-    // Marquer le ticket
-  public async markTicket(req: Request, res: Response): Promise<void> {
+  public async getValidTickets(req: Request, res: Response): Promise<void> {
     const { userId } = req.params;
-    const tickets = await Ticket.find({ userId: userId });
-    if (!tickets) {
-      res.status(404).json({ message: "Tickets not found" });
+
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+
+    const tickets = await Ticket.find({ userId, used: false });
+
+    const validTickets = tickets.filter(ticket => {
+      if (!ticket.validUntil) return;
+      if (ticket.validUntil < currentDate) {
+        return false;
+      }
+
+      switch (ticket.type) {
+        case "Week-end PASS":
+          return currentDate.getDay() === 6 || currentDate.getDay() === 0;
+
+        case "1daymonth PASS":
+          if (!ticket.validDays) return;
+          return ticket.validDays.some(day => {
+            return (
+              day.getDate() === currentDate.getDate() &&
+              day.getMonth() === currentDate.getMonth() &&
+              day.getFullYear() === currentDate.getFullYear()
+            );
+          });
+
+        case "Night PASS":
+          return currentHour >= 20;
+
+        default:
+          return true;
+      }
+    });
+
+    res.status(200).json({ validTickets });
+  }
+
+
+
+  public async markTicketAsUsed(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    const ticket = await Ticket.findById(id);
+    if (!ticket) {
+      res.status(404).json({ message: "Ticket not found" });
       return;
     }
-    res.status(200).json(tickets);
+
+    ticket.used = true;
+    await ticket.save();
+
+    res.status(200).json({ message: "Ticket marked as used", ticket: ticket });
   }
+
+  // vérifier que le ticket est bien dans la tranche de jour qu'il peut utiliser
+
 
 
   public async getTicketCountBySpace(req: Request, res: Response): Promise<void> {
