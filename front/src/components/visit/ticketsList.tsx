@@ -13,6 +13,9 @@ const TicketsList = ({ setTicketChoosed }: TicketsParams) => {
     const { data } = useUserContext().user;
     const [tickets, setTickets] = useState<Ticket[]>([]);
 
+    // faire la vérification des tickets et les marquer
+
+    
     useEffect(() => {
         async function getTickets() {
             if (data) {
@@ -27,6 +30,8 @@ const TicketsList = ({ setTicketChoosed }: TicketsParams) => {
         getTickets();
         return () => cancelTokenSource.cancel();
     }, [data]);
+
+    // marquer le ticket avec la route du back
 
     return (
         <div className="overflow-y-scroll h-[calc(55vh-60px)] flex gap-2 flex-wrap justify-center">

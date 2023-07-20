@@ -2,12 +2,14 @@ import { useParams } from "react-router-dom";
 import { ticketsArray } from "../../dto/tickets/tickets";
 import { Tickets } from "../../services";
 import { useEffect, useState } from "react";
+import { useUserContext } from "../../utils/user.context";
 
 const Ticket = () => {
 
     const { index } = useParams();
     const [ticketBuy, setTicketBuy] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const { data } = useUserContext().user;
 
     useEffect(() => {
         if (ticketBuy === true) {
@@ -124,15 +126,18 @@ const Ticket = () => {
                                         className="inline-block rounded border border-teal-600 bg-teal-600 px-12 py-3 font-bold text-white hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-teal-500"
                                         disabled={ticketBuy}
                                         onClick={async () => {
+                                            if(!data) return;
                                             setErrorMessage("");
-                                            const data = await Tickets.buy(
+                                            const response = await Tickets.buy(
                                               ticketsArray[parseInt(index)],
-                                              "64b03200e31eb0ef20d583e0"
+                                              data?._id
                                             );
-                                            if (data?.message) {
-                                                setTicketBuy(true);
+                                            if (response?.message) {
+                                              setTicketBuy(true);
                                             } else {
-                                                setErrorMessage("An error occured, please try again later");
+                                              setErrorMessage(
+                                                "An error occured, please try again later"
+                                              );
                                             }
                                         }}
                                     >
