@@ -51,10 +51,6 @@ class ServicebookRoutes {
      *     responses:
      *       200:
      *         description: A single Servicebook
-     *         content:
-     *           application/json:
-     *             schema:
-     *               $ref: '#/components/schemas/Servicebook'
      *       404:
      *         description: Servicebook not found
      *       500:
@@ -68,23 +64,70 @@ class ServicebookRoutes {
 
     /**
      * @swagger
-     * /api/servicebook/createservicebook:
-     *   post:
+     * /api/servicebook/getservicebookbyspaceid/{spaceId}:
+     *   get:
      *     security:
      *       - BearerAuth: []
      *     tags:
      *       - Service Book
-     *     summary: Create a new servicebook
-     *     requestBody:
-     *       required: true
-     *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/Servicebook'
+     *     summary: Retrieve a Servicebook by ID
+     *     parameters:
+     *       - in: path
+     *         name: spaceId
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: The ID of the Servicebook to retrieve
      *     responses:
-     *       201:
-     *         description: The created space.
+     *       200:
+     *         description: A single Servicebook
+     *       404:
+     *         description: Servicebook not found
+     *       500:
+     *         description: Internal Server Error
      */
+    this.router.get(
+      "/getservicebookbyspaceid/:id",
+      this.authMiddleware.isRole(["admin"]),
+      ServicebookController.getServiceBookBySpaceId
+    );
+
+    /**
+ * @swagger
+ * /api/servicebook/createservicebook:
+ *   post:
+ *     security:
+ *       - BearerAuth: []
+ *     tags:
+ *       - Service Book
+ *     summary: Create a new service book for a space
+ *     description: Creates a new service book for a space.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               spaceId:
+ *                 type: string
+ *               maintenanceStart:
+ *                 type: string
+ *                 format: date
+ *               maintenanceEnd:
+ *                type: string
+ *                format: date
+ *               description:
+ *                 type: string
+ *             required:
+ *               - spaceId
+ *               - maintenanceDate
+ *               - description
+ *     responses:
+ *       201:
+ *         description: Service book created successfully
+ *       400:
+ *         description: Bad request
+ */
     this.router.post(
       "/createservicebook",
       this.authMiddleware.isRole(["admin"]),
@@ -147,8 +190,8 @@ class ServicebookRoutes {
       ServicebookController.deleteServiceBook
     );
 
-    
-  } 
+
+  }
 }
 
 export default new ServicebookRoutes().router;

@@ -96,10 +96,13 @@ export class Spaces {
             };
             const response = await axios.put(`http://localhost:3000/api/spaces/maintenance/${id}`, {
                 cancelToken: token,
+            },{
                 headers: headers
             });
             if (response.data) {
+                console.log(response.data);
                 return response.data;
+                
             }
         } catch (err: unknown) {
             return null;
@@ -120,6 +123,7 @@ export class Spaces {
 
             const response = await axios.put(`http://localhost:3000/api/spaces/maintenanceoff/${id}`, {
                 cancelToken: token,
+            },{
                 headers: headers
             });
             if (response.data) {

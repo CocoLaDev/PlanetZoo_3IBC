@@ -22,6 +22,18 @@ class ServicebookController {
     }
   }
 
+  // Obtenir un servicebook par space ID
+  public async getServiceBookBySpaceId(req: Request, res: Response): Promise<void> {
+    try {
+      const spaceId = req.params.id;
+      
+      const servicebook = await Servicebook.find({spaceId: spaceId})
+      res.json(servicebook);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+
   // Créer un nouveau servicebook
   public async createServiceBook(req: Request, res: Response): Promise<void> {
     try {
